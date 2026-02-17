@@ -6,7 +6,7 @@ class City{
     private:
         int id;
         std::string name;
-        bool hasWareHouse;
+        bool WareHouse;
     public:
         City(int id, const std::string& name, bool house);
         int getId()const;

@@ -9,7 +9,7 @@ class Product{
         double price;
         int soldCount;
     public:
-        Product(int id,const std::string& name , double price);
+        Product(int categoryId,const std::string& name , double price);
         int getId()const;
         std::string getName() const;
         double getPrice() const;

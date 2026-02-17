@@ -19,7 +19,7 @@ class User{
 
         void increaseBalance(double amount);
         void decreaseBalance(double amount);
-        bool checkBalance()const; //using in decreaseBalance
+        bool hasEnoughBalance()const; //using in decreaseBalance
         void increaseScore(int amount);
 };
 
