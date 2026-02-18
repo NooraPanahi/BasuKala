@@ -9,13 +9,24 @@ class Product{
         double price;
         int soldCount;
     public:
-        Product(int categoryId,const std::string& name , double price);
-        int getId()const;
-        std::string getName() const;
-        double getPrice() const;
-        int getSoldCount() const;
+        Product(int categoryId,const std::string& name , double price)
+            :categoryId(categoryId) , name(name), price(price){}
+        int getId()const{
+            return categoryId;
+        }
+        std::string getName() const{
+            return name;
+        }
+        double getPrice() const{
+            return price;
+        }
+        int getSoldCount() const{
+            return soldCount;
+        }
 
-        void increaseSoldCount();
+        void increaseSoldCount(){
+            soldCount--;
+        }
 };
 
 #endif

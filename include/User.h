@@ -11,16 +11,32 @@ class User{
         int score;
         std::vector<int> orderIds;
     public:
-        User(int id,const std::string& name , double balance, int score);
-        int getId()const;
-        std::string getName()const;
-        double getBalance()const;
-        int getScore()const;
+        User(int id,const std::string& name , double balance, int score): id(id) , name(name) , balance(balance) , score(score){};
+        int getId()const{
+            return id;
+        }
+        std::string getName()const{
+            return name;
+        }
+        double getBalance()const{
+            return balance;
+        }
+        int getScore()const{
+            return score;
+        }
 
-        void increaseBalance(double amount);
-        void decreaseBalance(double amount);
-        bool hasEnoughBalance()const; //using in decreaseBalance
-        void increaseScore(int amount);
+        void increaseBalance(double amount){
+            balance += amount;
+        }
+        void decreaseBalance(double amount){
+            balance -= amount;
+        }
+        bool hasEnoughBalance()const{
+            return balance > 0;
+        } 
+        void increaseScore(int amount){
+            score+= amount;
+        }
 };
 
 #endif
