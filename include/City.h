@@ -8,10 +8,16 @@ class City{
         std::string name;
         bool WareHouse;
     public:
-        City(int id, const std::string& name, bool house);
-        int getId()const;
-        std::string getName()const;
-        bool hasWareHouse()const;
+        City(int id, const std::string& name, bool house): id(id), name(name),WareHouse(house){}
+        int getId()const{
+            return id;
+        }
+        std::string getName()const{
+            return name;
+        }
+        bool hasWareHouse()const{
+            return WareHouse;
+        }
 };
 
 #endif
