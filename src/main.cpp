@@ -1,16 +1,12 @@
-#include "../include/Basket.h"
-#include <iostream>
-
+#include "../include/PurchaseHistory.h"
+#include <vector>
 int main(){
-    Basket basket;
-    basket.addProduct(1 , 56.8);
-    basket.addProduct(2, 32.4);
-    std::cout << "total price: " << basket.getTotalPrice() << std::endl;
+    PurchaseHistory history;
+    std::vector<int> products = {1,2,3};
+    Order o1(1,1,products,150.0,0,1,123456);
+    Order o2(2,1,products,200.0,0,1,123446);
+    history.addOrder(o1);
+    history.addOrder(o2);
 
-   if(basket.removeProductByIndex(1))  //remember: starting from 0
-    std::cout << "total price after removing product 2 : " << basket.getTotalPrice();
-    
-    std::cout << "\nYour products are:\n";
-    for(auto i : basket.getProducts())
-        std::cout << "product id: " << i.productId << " price: " << i.price << '\n'; 
+    history.display();
 }
