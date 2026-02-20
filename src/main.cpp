@@ -1,12 +1,18 @@
-#include "../include/PurchaseHistory.h"
+#include "../include/PurchaseService.h"
 #include <vector>
 int main(){
-    PurchaseHistory history;
-    std::vector<int> products = {1,2,3};
-    Order o1(1,1,products,150.0,0,1,123456);
-    Order o2(2,1,products,200.0,0,1,123446);
-    history.addOrder(o1);
-    history.addOrder(o2);
-
-    history.display();
+    PurchaseService service;
+   if( service.login("noora"))
+        std::cout <<  "logged in successfully\n"; 
+    else{
+        std::cout <<  " no user found\n";
+        std::cout << "sign in!! \n";
+    }
+    service.registerUser(1,"noora",120);
+    service.login("noora");
+    service.addToBasket(3,6);
+    service.veiwBasket();
+    std::cout << "-------------\n";
+    service.checkout(7,32123);
+    service.showPurchaseHistory();
 }
