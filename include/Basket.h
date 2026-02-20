@@ -2,6 +2,7 @@
 #define BASKET_H
 
 #include <vector>
+#include "../data_structures/Stack/ItemStack.h"
 
 struct Item {
     int productId;
@@ -12,11 +13,13 @@ struct Item {
 class Basket{
     private:
         std::vector<Item> cart;
+        ItemStack removedStack;
         double totalPrice;
     public:
         Basket();
         void addProduct(int productId, double price);
         bool removeProductByIndex(int index);
+        bool undoLastRemovedItem();
         void clear();
         double getTotalPrice()const;
         const std::vector<Item>&  getProducts()const;
