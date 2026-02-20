@@ -9,5 +9,6 @@ set(SOURCES
     src/data_structures/Hash/UserHashTable.cpp
     src/Basket.cpp
     src/PurchaseHistory.cpp
+    src/PurchaseService.cpp
 )
 add_executable(BasuKala ${SOURCES})
