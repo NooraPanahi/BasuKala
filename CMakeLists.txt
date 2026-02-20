@@ -7,6 +7,7 @@ include_directories(include)
 set(SOURCES
     src/main.cpp
     src/data_structures/Hash/UserHashTable.cpp
+    src/data_structures/Stack/ItemStack.cpp
     src/Basket.cpp
     src/PurchaseHistory.cpp
     src/PurchaseService.cpp
