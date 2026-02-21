@@ -9,6 +9,8 @@ private:
     std::unordered_map <int, Product> ProductId;
     int nextId = 1;
 public:
-void addProduct(const std::string& name, double price, int category);
+    void addProduct(const std::string& name, double price, int category);
+    void increaseSoldCount(int productId);
+    void removeProduct(int productId);
 
 };
