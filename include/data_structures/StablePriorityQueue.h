@@ -11,6 +11,7 @@ protected:
 public:
 
     void push(const Order& order);
+
     Order pop();
     Order top() const;
     bool empty() const;
