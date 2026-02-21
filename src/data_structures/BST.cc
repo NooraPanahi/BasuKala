@@ -1,8 +1,6 @@
 #include "../../include/data_structures/BST.h"
 
-
-
-void BST::insert(const std::string &key, const Product &value)
+void BST::insert(const std::string& key, Product* value)
 {
     if (!root) {
         Node* newnode = new Node;
@@ -24,11 +22,10 @@ void BST::insert(const std::string &key, const Product &value)
 
         parent = temp;
 
-        if (key < temp->name) {
+        if (key < temp->name)
             temp = temp->left;
-        } else {
+        else
             temp = temp->right;
-        }
     }
 
     Node* newnode = new Node;
@@ -36,27 +33,22 @@ void BST::insert(const std::string &key, const Product &value)
     newnode->name = key;
     newnode->product.push_back(value);
 
-    if (key < parent->name) {
+    if (key < parent->name)
         parent->left = newnode;
-    } else {
+    else
         parent->right = newnode;
-    }
 }
-
-std::vector<Product>* BST::search(const std::string& key)
+std::vector<Product*>* BST::search(const std::string& key)
 {
     Node* current = root;
 
     while (current) {
-        if (key == current->name) {
+        if (key == current->name)
             return &(current->product);
-        }
-        else if (key < current->name) {
+        else if (key < current->name)
             current = current->left;
-        }
-        else {
+        else
             current = current->right;
-        }
     }
 
     return nullptr;
@@ -68,21 +60,23 @@ void BST::remove(const std::string& key, int productId)
     root = removeHelper(root, key, productId);
 }
 
-BST::Node* BST::removeHelper(Node* current,const std::string& key,int productId)
+BST::Node* BST::removeHelper(Node* current,
+                             const std::string& key,
+                             int productId)
 {
     if (!current)
         return nullptr;
 
-    if (key < current->name) {
+    if (key < current->name)
         current->left = removeHelper(current->left, key, productId);
-    }
-    else if (key > current->name) {
+    else if (key > current->name)
         current->right = removeHelper(current->right, key, productId);
-    }
     else {
+
         auto& vec = current->product;
+
         for (auto it = vec.begin(); it != vec.end(); ++it) {
-            if (it->getId() == productId) {
+            if ((*it)->getId() == productId) {
                 vec.erase(it);
                 break;
             }
@@ -97,7 +91,6 @@ BST::Node* BST::removeHelper(Node* current,const std::string& key,int productId)
             return nullptr;
         }
 
-     
         if (!current->left) {
             Node* temp = current->right;
             delete current;
@@ -113,28 +106,26 @@ BST::Node* BST::removeHelper(Node* current,const std::string& key,int productId)
         Node* successorParent = current;
         Node* successor = current->right;
 
-    while (successor->left) {
-        successorParent = successor;
-        successor = successor->left;
-    }
+        while (successor->left) {
+            successorParent = successor;
+            successor = successor->left;
+        }
 
-    current->name = successor->name;
-    current->product = successor->product;
+        current->name = successor->name;
+        current->product = successor->product;
 
+        if (successorParent == current)
+            successorParent->right = successor->right;
+        else
+            successorParent->left = successor->right;
 
-    if (successorParent == current) {
-        successorParent->right = successor->right;
-    }   
-    else {
-        successorParent->left = successor->right;
-    }
-
-    delete successor;
-
+        delete successor;
     }
 
     return current;
 }
+
+
 void BST::clear(Node* node)
 {
     if (!node)
@@ -145,8 +136,8 @@ void BST::clear(Node* node)
 
     delete node;
 }
+
 BST::~BST()
 {
     clear(root);
 }
-
