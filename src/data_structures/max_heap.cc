@@ -127,3 +127,24 @@ void ProductMaxHeap::increaseKey(Product* product)
 
     heapifyUp(it->second);
 }
+void ProductMaxHeap::remove(Product* product)
+{
+    auto it = indexMap.find(product);
+    if (it == indexMap.end())
+        throw std::runtime_error("Product not found in heap");
+
+    int index = it->second;
+    int lastIndex = heap.size() - 1;
+
+    std::swap(heap[index], heap[lastIndex]);
+
+    indexMap[heap[index]] = index;
+
+    heap.pop_back();
+    indexMap.erase(product);
+
+    if (index < heap.size()) {
+        heapifyUp(index);
+        heapifyDown(index);
+    }
+}

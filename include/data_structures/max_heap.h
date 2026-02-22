@@ -15,7 +15,7 @@ private:
     void heapifyDown(int index);
 
 public:
-    ProductMaxHeap();
+    ProductMaxHeap() =  default;
 
     void insert(Product* product);
     Product* top() const;
@@ -24,4 +24,5 @@ public:
     bool empty() const;
     size_t size() const;
     void increaseKey(Product* product);
+    void remove(Product* product);
 };
