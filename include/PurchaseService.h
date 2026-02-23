@@ -18,7 +18,7 @@ class PurchaseService{
         bool login(const std::string& name);
         void logout();
 
-        void addToBasket(int productId, double price);
+        void addToBasket(const Product& product);
         bool removeFromBasket(int index);
         void veiwBasket() const;
 

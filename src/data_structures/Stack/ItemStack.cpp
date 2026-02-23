@@ -1,5 +1,4 @@
 #include "../include/data_structures/Stack/ItemStack.h"
-#include "ItemStack.h"
 
 ItemStack::ItemStack(): node(nullptr){}
 
@@ -11,13 +10,13 @@ ItemStack::~ItemStack(){
     }
 }
 
-void ItemStack::push(const Item &item){
+void ItemStack::push(const Product &item){
     Node* newNode = new Node(item);
     newNode->next = node;
     node = newNode;
 }
 
-bool ItemStack::pop(Item &removedItem){
+bool ItemStack::pop(Product &removedItem){
     if(!node) return false;
 
     Node* temp = node;

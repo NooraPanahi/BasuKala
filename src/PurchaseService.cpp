@@ -16,9 +16,9 @@ void PurchaseService::logout(){
     currentBasket.clear();
 }
 
-void PurchaseService::addToBasket(int productId, double price){
+void PurchaseService::addToBasket(const Product& product){
     if(!currentUser) return;
-    currentBasket.addProduct(productId,price);
+    currentBasket.addProduct(product);
 }
 
 
@@ -39,9 +39,9 @@ void PurchaseService::veiwBasket() const{
         std::cout << "Basket is empty.\n";
         return;
     }
-    const std::vector<Item> & items = currentBasket.getProducts();
+    const std::vector<Product> & items = currentBasket.getProducts();
     for(int i = 0 ; i < static_cast<int>(items.size()); i++)
-        std::cout << i << ") " << " Product ID: " << items[i].productId << ", Price: " << items[i].price << '\n';
+        std::cout << i << ") " << " Product ID: " << items[i].getId() << ", Price: " << items[i].getPrice() << '\n';
     
     std::cout << "Total price: " << currentBasket.getTotalPrice() << '\n';
 
@@ -59,7 +59,7 @@ bool PurchaseService::checkout(int cityId, long long timestamp){
 
     std::vector<int> productIds;
     for(const auto& item : currentBasket.getProducts())
-        productIds.push_back(item.productId);
+        productIds.push_back(item.getId());
     
     Order order(nextOrderId++, currentUser->getId(), productIds,total,0,cityId,timestamp);
     currentUser->getHistory().addOrder(order);

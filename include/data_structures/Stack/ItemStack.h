@@ -1,21 +1,21 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include "../Basket.h"
+#include "Product.h"
 
 class ItemStack{
     private:
         struct Node{
-            Item data;
+            Product data;
             Node* next;
-            Node(const Item& item) : data(data), next(nullptr){}
+            Node(const Product& item) : data(item), next(nullptr){}
         };
         Node* node;
     public:
         ItemStack();
         ~ItemStack();
-        void push(const Item& item);
-        bool pop(Item& removedItem);
+        void push(const Product& item);
+        bool pop(Product& removedItem);
         bool isEmpty()const;
 };
 
