@@ -11,5 +11,6 @@ set(SOURCES
     src/Basket.cpp
     src/PurchaseHistory.cpp
     src/PurchaseService.cpp
+    src/data_structures/Trie/Trie.cpp
 )
 add_executable(BasuKala ${SOURCES})
