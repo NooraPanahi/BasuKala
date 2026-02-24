@@ -1,10 +1,11 @@
-#include "../include/PurchaseService.h"
-#include <iostream>
+#include "../include/BasuKala.h"
 using namespace std;
 
-bool FirstPage(PurchaseService& Pservice){
-    
-    Pservice.registerUser(Role::normal,"noora",120); //normal user - testing login
+BasuKala::BasuKala(){
+    Purchase.registerUser(Role::normal,"noora",120); //normal user - testing login
+  
+}
+bool BasuKala::firstPage(){
     while (true){
         cout << " 0-sign up\n 1-login\n 2-exit\n";
         cout << "enter: ";
@@ -13,13 +14,12 @@ bool FirstPage(PurchaseService& Pservice){
         if(choose == 0){ //sign up
             cout << "enter your name: ";
             string name; cin >> name;
-            if(Pservice.userExists(name)){
+            if(Purchase.userExists(name)){
                 cout << "we have this user!! sign in failed\n";
             }else{
-                if(Pservice.registerUser(Role::normal,name,200)){// id & balance ?? 
+                if(Purchase.registerUser(Role::normal,name,200)){// id & balance ?? 
                     cout << "signed in successfully!!\n";
                     return true;
-
                 }else{
                     cout << "signed in failed\n";
                 }
@@ -28,8 +28,8 @@ bool FirstPage(PurchaseService& Pservice){
         else if(choose == 1){ //login
             cout << "enter your name: ";
             string name; cin >> name;
-            if(Pservice.userExists(name)){
-                Pservice.login(name);
+            if(Purchase.userExists(name)){
+                Purchase.login(name);
                 cout << "logged in successfully\n";
                 return true;
             }else{
@@ -45,17 +45,17 @@ bool FirstPage(PurchaseService& Pservice){
         }
     }
 }
-bool secondPageNormal(PurchaseService& Pservice){
-    
+bool BasuKala::secondPageNormal(){
     cout << "------------------------------\n";
-    cout << Pservice.getCurrentUser()->getName() << '\n';
-    cout << "score: " << Pservice.getCurrentUser()->getScore() << '\n';
-    cout << "balance: $" << Pservice.getCurrentUser()->getBalance() << '\n';
+    cout << Purchase.getCurrentUser()->getName() << '\n';
+    cout << "score: " << Purchase.getCurrentUser()->getScore() << '\n';
+    cout << "balance: $" << Purchase.getCurrentUser()->getBalance() << '\n';
     cout << "------------------------------\n";
 
     while(true){
         cout << " 0)store\n 1) increase balance\n 2) purchase history\n 3) log out\n";
         cout << "top selling product:\n";
+        cout << pservice.getBestSellerHeap().top()->getName() << '\n';
         //show top selling product
 
         cout << "enter: ";
@@ -66,18 +66,18 @@ bool secondPageNormal(PurchaseService& Pservice){
         else if(choose == 1){
             cout << "enter the amount: ";
             int amount ; cin >> amount;
-            Pservice.getCurrentUser()->increaseBalance(amount);
+            Purchase.getCurrentUser()->increaseBalance(amount);
             cout << "increased balance successfully\n";
             return true;
         }
         else if(choose == 2){
             cout << "your purchase history:\n";
-            Pservice.showPurchaseHistory();
+            Purchase.showPurchaseHistory();
             return true;
         }
         else if(choose == 3){
             cout << "logging out\n";
-            Pservice.logout();
+            Purchase.logout();
             return false;
         }
         else{
@@ -88,18 +88,15 @@ bool secondPageNormal(PurchaseService& Pservice){
 
 
 }
-int main(){
-    PurchaseService Pservice;
+void BasuKala::run(){
     cout << "***Welcome to our shop***\n";
-    if(FirstPage(Pservice)){
-        if(Pservice.getUsersRole() == Role::admin){
+    if(firstPage()){
+        if(Purchase.getUsersRole() == Role::admin){
 
         } 
-        if(Pservice.getUsersRole() == Role::normal){
-            if(secondPageNormal(Pservice))
+        if(Purchase.getUsersRole() == Role::normal){
+           if(secondPageNormal())
                 cout << "done\n";
         }        
     }
-
-
 }
