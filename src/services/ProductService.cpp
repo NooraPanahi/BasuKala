@@ -34,3 +34,6 @@ void PService::removeProduct(int productId)
 
     ProductId.erase(it);
 }
+ProductMaxHeap PService::getBestSellerHeap(){
+    return bestSellerHeap;
+}

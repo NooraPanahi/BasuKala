@@ -12,5 +12,6 @@ public:
     void addProduct(const std::string& name, double price, int category);
     void increaseSoldCount(int productId);
     void removeProduct(int productId);
+    ProductMaxHeap getBestSellerHeap();
 
 };
