@@ -19,7 +19,6 @@ class UserHashTable{
         UserHashTable(int cap = 101);
         bool insert(const User& user);
         User* findByName(const std::string& name);
-        bool exists(const std::string& name);
         ~UserHashTable();
 };
 

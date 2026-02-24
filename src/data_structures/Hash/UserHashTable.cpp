@@ -40,10 +40,6 @@ User* UserHashTable::findByName(const std::string& name){
     return nullptr;
 }
 
-bool UserHashTable::exists(const std::string& name){
-    return findByName(name) != nullptr;
-}
-
 UserHashTable::~UserHashTable(){
     for(int i = 0 ; i < capacity; i++){
         Node* current = table[i];
