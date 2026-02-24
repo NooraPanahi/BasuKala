@@ -1,8 +1,6 @@
 #ifndef USER_H
 #define USER_H
-#include <string>
-#include <vector>
-
+#include "PurchaseHistory.h"
 class User{
     private:
         int id;
@@ -10,6 +8,7 @@ class User{
         double balance;
         int score;
         std::vector<int> orderIds;
+        PurchaseHistory history;
     public:
         User(int id,const std::string& name , double balance, int score): id(id) , name(name) , balance(balance) , score(score){};
         int getId()const{
@@ -31,11 +30,15 @@ class User{
         void decreaseBalance(double amount){
             balance -= amount;
         }
-        bool hasEnoughBalance()const{
-            return balance > 0;
+
+        bool hasEnoughBalance(int amount)const{
+            return balance >= amount;
         } 
         void increaseScore(int amount){
             score+= amount;
+        }
+        PurchaseHistory& getHistory(){
+            return history;
         }
 };
 
