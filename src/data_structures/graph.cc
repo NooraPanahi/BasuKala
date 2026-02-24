@@ -67,3 +67,10 @@ std::pair<int,int> Graph::nearestWarehouse(int srcId)
     if (bestId == -1) return {-1, -1};  
     return {bestId, bestDist};
 }
+
+std::vector <int> bestPath(const int& src, const int&  target, const int&  dist){
+    std::pair<std::vector<int>,bool> miniDistance;
+    // for(auto neigh : n)
+
+
+}
