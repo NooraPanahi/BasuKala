@@ -14,7 +14,7 @@ class PurchaseService{
         int nextOrderId;
     public:
         PurchaseService();
-        bool registerUser(int id, const std::string& name, double balance);
+        bool registerUser(Role role, const std::string& name, double balance);
         bool login(const std::string& name);
         void logout();
 
@@ -24,6 +24,9 @@ class PurchaseService{
 
         bool checkout(int cityId, long long timestamp);
         void showPurchaseHistory() const;
+        bool userExists(const std::string& name);
+        Role getUsersRole()const;
+        User* getCurrentUser()const;
 };
 
 #endif

@@ -1,9 +1,10 @@
 #include "../include/PurchaseService.h"
+#include "PurchaseService.h"
 
 PurchaseService::PurchaseService() : currentUser(nullptr), nextOrderId(1) {}
 
-bool PurchaseService::registerUser(int id, const std::string &name, double balance){
-    return users.insert(User(id,name,balance,0));
+bool PurchaseService::registerUser(Role role, const std::string &name, double balance){
+    return users.insert(User(role,name,balance,0));
 }
 
 bool PurchaseService::login(const std::string &name){
@@ -61,7 +62,7 @@ bool PurchaseService::checkout(int cityId, long long timestamp){
     for(const auto& item : currentBasket.getProducts())
         productIds.push_back(item.getId());
     
-    Order order(nextOrderId++, currentUser->getId(), productIds,total,0,cityId,timestamp);
+    Order order(nextOrderId++, productIds,total,0,cityId,timestamp);
     currentUser->getHistory().addOrder(order);
     currentBasket.clear();
     return true;
@@ -74,4 +75,16 @@ void PurchaseService::showPurchaseHistory() const{
         return ;
     }
     currentUser->getHistory().display();
+}
+
+bool PurchaseService::userExists(const std::string &name){
+    return users.findByName(name) != nullptr;
+}
+
+Role PurchaseService::getUsersRole() const{
+    return currentUser->getRole();
+}
+
+User *PurchaseService::getCurrentUser() const{
+    return currentUser;
 }
