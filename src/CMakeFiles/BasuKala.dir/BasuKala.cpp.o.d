@@ -1,5 +1,5 @@
-CMakeFiles/BasuKala.dir/PurchaseService.cpp.o: \
- /home/mini/Desktop/algo_pro/BasuKala/src/PurchaseService.cpp \
+CMakeFiles/BasuKala.dir/BasuKala.cpp.o: \
+ /home/mini/Desktop/algo_pro/BasuKala/src/BasuKala.cpp \
  /usr/include/stdc-predef.h \
  /home/mini/Desktop/algo_pro/BasuKala/src/../include/PurchaseService.h \
  /home/mini/Desktop/algo_pro/BasuKala/src/../include/data_structures/Hash/UserHashTable.h \
@@ -162,5 +162,4 @@ CMakeFiles/BasuKala.dir/PurchaseService.cpp.o: \
  /home/mini/Desktop/algo_pro/BasuKala/src/../include/Product.h \
  /home/mini/Desktop/algo_pro/BasuKala/src/../include/data_structures/Stack/ItemStack.h \
  /home/mini/Desktop/algo_pro/BasuKala/include/Product.h \
- /home/mini/Desktop/algo_pro/BasuKala/src/../include/Order.h \
- /home/mini/Desktop/algo_pro/BasuKala/include/PurchaseService.h
+ /home/mini/Desktop/algo_pro/BasuKala/src/../include/Order.h

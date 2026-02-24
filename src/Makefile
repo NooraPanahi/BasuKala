@@ -153,6 +153,30 @@ Basket.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/Basket.cpp.s
 .PHONY : Basket.cpp.s
 
+BasuKala.o: BasuKala.cpp.o
+.PHONY : BasuKala.o
+
+# target to build an object file
+BasuKala.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/BasuKala.cpp.o
+.PHONY : BasuKala.cpp.o
+
+BasuKala.i: BasuKala.cpp.i
+.PHONY : BasuKala.i
+
+# target to preprocess a source file
+BasuKala.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/BasuKala.cpp.i
+.PHONY : BasuKala.cpp.i
+
+BasuKala.s: BasuKala.cpp.s
+.PHONY : BasuKala.s
+
+# target to generate assembly for a file
+BasuKala.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/BasuKala.cpp.s
+.PHONY : BasuKala.cpp.s
+
 PurchaseHistory.o: PurchaseHistory.cpp.o
 .PHONY : PurchaseHistory.o
 
@@ -273,30 +297,6 @@ data_structures/Trie/Trie.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/data_structures/Trie/Trie.cpp.s
 .PHONY : data_structures/Trie/Trie.cpp.s
 
-main.o: main.cpp.o
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/BasuKala.dir/build.make CMakeFiles/BasuKala.dir/main.cpp.s
-.PHONY : main.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -309,6 +309,9 @@ help:
 	@echo "... Basket.o"
 	@echo "... Basket.i"
 	@echo "... Basket.s"
+	@echo "... BasuKala.o"
+	@echo "... BasuKala.i"
+	@echo "... BasuKala.s"
 	@echo "... PurchaseHistory.o"
 	@echo "... PurchaseHistory.i"
 	@echo "... PurchaseHistory.s"
@@ -324,9 +327,6 @@ help:
 	@echo "... data_structures/Trie/Trie.o"
 	@echo "... data_structures/Trie/Trie.i"
 	@echo "... data_structures/Trie/Trie.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
 .PHONY : help
 
 

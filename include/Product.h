@@ -18,12 +18,13 @@ class Product{
         double getPrice() const{
             return price;
         }
+        int getId() const{
+            return id;
+        }
         int getSoldCount() const{
             return soldCount;
         }
-        // int getId() const{
-        //     return id;
-        // }
+   
         int getCategory() const{
             return categoryId;
         }

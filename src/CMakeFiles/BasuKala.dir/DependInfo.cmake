@@ -9,12 +9,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/mini/Desktop/algo_pro/BasuKala/src/Basket.cpp" "CMakeFiles/BasuKala.dir/Basket.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/Basket.cpp.o.d"
+  "/home/mini/Desktop/algo_pro/BasuKala/src/BasuKala.cpp" "CMakeFiles/BasuKala.dir/BasuKala.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/BasuKala.cpp.o.d"
   "/home/mini/Desktop/algo_pro/BasuKala/src/PurchaseHistory.cpp" "CMakeFiles/BasuKala.dir/PurchaseHistory.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/PurchaseHistory.cpp.o.d"
   "/home/mini/Desktop/algo_pro/BasuKala/src/PurchaseService.cpp" "CMakeFiles/BasuKala.dir/PurchaseService.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/PurchaseService.cpp.o.d"
   "/home/mini/Desktop/algo_pro/BasuKala/src/data_structures/Hash/UserHashTable.cpp" "CMakeFiles/BasuKala.dir/data_structures/Hash/UserHashTable.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/data_structures/Hash/UserHashTable.cpp.o.d"
   "/home/mini/Desktop/algo_pro/BasuKala/src/data_structures/Stack/ItemStack.cpp" "CMakeFiles/BasuKala.dir/data_structures/Stack/ItemStack.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/data_structures/Stack/ItemStack.cpp.o.d"
   "/home/mini/Desktop/algo_pro/BasuKala/src/data_structures/Trie/Trie.cpp" "CMakeFiles/BasuKala.dir/data_structures/Trie/Trie.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/data_structures/Trie/Trie.cpp.o.d"
-  "/home/mini/Desktop/algo_pro/BasuKala/src/main.cpp" "CMakeFiles/BasuKala.dir/main.cpp.o" "gcc" "CMakeFiles/BasuKala.dir/main.cpp.o.d"
   "" "BasuKala" "gcc" "CMakeFiles/BasuKala.dir/link.d"
   )
 

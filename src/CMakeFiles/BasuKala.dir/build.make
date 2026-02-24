@@ -72,19 +72,19 @@ include CMakeFiles/BasuKala.dir/flags.make
 CMakeFiles/BasuKala.dir/codegen:
 .PHONY : CMakeFiles/BasuKala.dir/codegen
 
-CMakeFiles/BasuKala.dir/main.cpp.o: CMakeFiles/BasuKala.dir/flags.make
-CMakeFiles/BasuKala.dir/main.cpp.o: main.cpp
-CMakeFiles/BasuKala.dir/main.cpp.o: CMakeFiles/BasuKala.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mini/Desktop/algo_pro/BasuKala/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/BasuKala.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BasuKala.dir/main.cpp.o -MF CMakeFiles/BasuKala.dir/main.cpp.o.d -o CMakeFiles/BasuKala.dir/main.cpp.o -c /home/mini/Desktop/algo_pro/BasuKala/src/main.cpp
+CMakeFiles/BasuKala.dir/BasuKala.cpp.o: CMakeFiles/BasuKala.dir/flags.make
+CMakeFiles/BasuKala.dir/BasuKala.cpp.o: BasuKala.cpp
+CMakeFiles/BasuKala.dir/BasuKala.cpp.o: CMakeFiles/BasuKala.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/mini/Desktop/algo_pro/BasuKala/src/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/BasuKala.dir/BasuKala.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/BasuKala.dir/BasuKala.cpp.o -MF CMakeFiles/BasuKala.dir/BasuKala.cpp.o.d -o CMakeFiles/BasuKala.dir/BasuKala.cpp.o -c /home/mini/Desktop/algo_pro/BasuKala/src/BasuKala.cpp
 
-CMakeFiles/BasuKala.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BasuKala.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mini/Desktop/algo_pro/BasuKala/src/main.cpp > CMakeFiles/BasuKala.dir/main.cpp.i
+CMakeFiles/BasuKala.dir/BasuKala.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/BasuKala.dir/BasuKala.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mini/Desktop/algo_pro/BasuKala/src/BasuKala.cpp > CMakeFiles/BasuKala.dir/BasuKala.cpp.i
 
-CMakeFiles/BasuKala.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BasuKala.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mini/Desktop/algo_pro/BasuKala/src/main.cpp -o CMakeFiles/BasuKala.dir/main.cpp.s
+CMakeFiles/BasuKala.dir/BasuKala.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/BasuKala.dir/BasuKala.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mini/Desktop/algo_pro/BasuKala/src/BasuKala.cpp -o CMakeFiles/BasuKala.dir/BasuKala.cpp.s
 
 CMakeFiles/BasuKala.dir/data_structures/Hash/UserHashTable.cpp.o: CMakeFiles/BasuKala.dir/flags.make
 CMakeFiles/BasuKala.dir/data_structures/Hash/UserHashTable.cpp.o: data_structures/Hash/UserHashTable.cpp
@@ -172,7 +172,7 @@ CMakeFiles/BasuKala.dir/data_structures/Trie/Trie.cpp.s: cmake_force
 
 # Object files for target BasuKala
 BasuKala_OBJECTS = \
-"CMakeFiles/BasuKala.dir/main.cpp.o" \
+"CMakeFiles/BasuKala.dir/BasuKala.cpp.o" \
 "CMakeFiles/BasuKala.dir/data_structures/Hash/UserHashTable.cpp.o" \
 "CMakeFiles/BasuKala.dir/data_structures/Stack/ItemStack.cpp.o" \
 "CMakeFiles/BasuKala.dir/Basket.cpp.o" \
@@ -183,7 +183,7 @@ BasuKala_OBJECTS = \
 # External object files for target BasuKala
 BasuKala_EXTERNAL_OBJECTS =
 
-BasuKala: CMakeFiles/BasuKala.dir/main.cpp.o
+BasuKala: CMakeFiles/BasuKala.dir/BasuKala.cpp.o
 BasuKala: CMakeFiles/BasuKala.dir/data_structures/Hash/UserHashTable.cpp.o
 BasuKala: CMakeFiles/BasuKala.dir/data_structures/Stack/ItemStack.cpp.o
 BasuKala: CMakeFiles/BasuKala.dir/Basket.cpp.o

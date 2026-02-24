@@ -4,6 +4,8 @@ file(REMOVE_RECURSE
   "BasuKala.pdb"
   "CMakeFiles/BasuKala.dir/Basket.cpp.o"
   "CMakeFiles/BasuKala.dir/Basket.cpp.o.d"
+  "CMakeFiles/BasuKala.dir/BasuKala.cpp.o"
+  "CMakeFiles/BasuKala.dir/BasuKala.cpp.o.d"
   "CMakeFiles/BasuKala.dir/PurchaseHistory.cpp.o"
   "CMakeFiles/BasuKala.dir/PurchaseHistory.cpp.o.d"
   "CMakeFiles/BasuKala.dir/PurchaseService.cpp.o"
@@ -14,8 +16,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/BasuKala.dir/data_structures/Stack/ItemStack.cpp.o.d"
   "CMakeFiles/BasuKala.dir/data_structures/Trie/Trie.cpp.o"
   "CMakeFiles/BasuKala.dir/data_structures/Trie/Trie.cpp.o.d"
-  "CMakeFiles/BasuKala.dir/main.cpp.o"
-  "CMakeFiles/BasuKala.dir/main.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.
