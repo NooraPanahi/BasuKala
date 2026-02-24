@@ -6,7 +6,6 @@
 class Order {
 private:
     int orderId;
-    int userId;
     std::vector<int> productIds;
     double totalPrice;
     int frozenScore;
@@ -15,14 +14,12 @@ private:
 
 public:
     Order(int id,
-          int user,
           const std::vector<int>& products,
           double totalprice,
           int score,
           int city,
           long long time)
         : orderId(id),
-          userId(user),
           productIds(products),
           totalPrice(totalprice),
           frozenScore(score),
@@ -32,10 +29,6 @@ public:
 
     int getOrderId() const {
         return orderId;
-    }
-
-    int getUserId() const {
-        return userId;
     }
 
     int getFrozenScore() const {
