@@ -6,8 +6,10 @@ include_directories(include)
 
 set(SOURCES
     src/BasuKala.cpp
+    src/main.cpp
     src/data_structures/Hash/UserHashTable.cpp
     src/data_structures/Stack/ItemStack.cpp
+    src/data_structures/BST.cc
     src/Basket.cpp
     src/PurchaseHistory.cpp
     src/PurchaseService.cpp
