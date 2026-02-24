@@ -12,9 +12,6 @@ class Product{
     public:
         Product(int id, int categoryId,const std::string& name , double price)
             :id(id), categoryId(categoryId) , name(name), price(price){}
-        int getId()const{
-            return categoryId;
-        }
         std::string getName() const{
             return name;
         }
