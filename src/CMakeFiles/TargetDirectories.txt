@@ -1,0 +1,3 @@
+/home/mini/Desktop/algo_pro/BasuKala/src/CMakeFiles/BasuKala.dir
+/home/mini/Desktop/algo_pro/BasuKala/src/CMakeFiles/edit_cache.dir
+/home/mini/Desktop/algo_pro/BasuKala/src/CMakeFiles/rebuild_cache.dir
