@@ -24,9 +24,9 @@ class Product{
         int getSoldCount() const{
             return soldCount;
         }
-        int getId() const{
-            return id;
-        }
+        // int getId() const{
+        //     return id;
+        // }
         int getCategory() const{
             return categoryId;
         }
