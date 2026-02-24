@@ -7,7 +7,9 @@ private:
     std::vector<std::vector<std::pair<int, int>>>neighbor;
 public:
     ~Graph();
-    City* neaest_ware(const City& city);
-    std::vector<City*> road(const City& first,const City& second );
-    std::vector<City*> findShortPath (const City& first,const City& second );
+    void insert (const std::string& name, const bool& ware );
+    std::vector<int> Graph::dijkstra(int srcId);
+
+    std::pair<int,int> nearestWarehouse(int srcId);
+    std::vector<City*> path(int dist, int src, int target);
 };
