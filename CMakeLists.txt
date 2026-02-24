@@ -5,7 +5,7 @@ project(BasuKala)
 include_directories(include)
 
 set(SOURCES
-    src/main.cpp
+    src/BasuKala.cpp
     src/data_structures/Hash/UserHashTable.cpp
     src/data_structures/Stack/ItemStack.cpp
     src/Basket.cpp
