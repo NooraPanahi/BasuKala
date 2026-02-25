@@ -1,5 +1,4 @@
-// #include "../../include/data_structures/max_heap.h"
-#include "max_heap.h"
+#include "../../include/data_structures/max_heap.h"
 #include <algorithm>
 #include <stdexcept>
 using namespace std;

@@ -1,6 +1,6 @@
 #pragma once
-#include "max_heap.h"
-#include "BST.h"
+#include "../data_structures/max_heap.h"
+#include "../data_structures/BST.h"
 #include <unordered_map>
 class PService{
 private:

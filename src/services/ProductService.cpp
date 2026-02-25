@@ -1,9 +1,12 @@
-#include "ProductService.h"
+#include "../../include/services/ProductService.h"
 #include <stdexcept>
 void PService::addProduct(const std::string &name, double price, int category)
 {
-    ProductId.emplace(nextId,Product(nextId, category, name, price));
-    Product* product = &ProductId[nextId];
+    auto result = ProductId.emplace(nextId, Product(nextId, category, name, price));
+    //ProductId.emplace(nextId,Product(nextId, category, name, price));
+    //Product* product = &ProductId[nextId];
+    Product* product = &(result.first->second);
+
     categoryP[category].insert(name, product);
     bestSellerHeap.insert(product);
     nextId++;
