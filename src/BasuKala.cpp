@@ -8,7 +8,7 @@ BasuKala::BasuKala(){
     pservice.addProduct("banana", 80,3);
     pservice.addProduct("tomatoes",10,2);
     pservice.addProduct("baaa",8,4);
-    trie.insert("banana");
+    trie.insert("banana"); // testing for searching products
     trie.insert("baaa");
     trie.insert("vegtables");
     trie.insert("tomatoes");
@@ -41,6 +41,12 @@ bool BasuKala::firstPage(){
             if(Purchase.userExists(name)){
                 Purchase.login(name);
                 cout << "logged in successfully\n";
+                //
+                    Product p(3,4,"banana",30);
+                    Purchase.addToBasket(p);
+                    Product pp(5,3,"rrr",43);
+                    Purchase.addToBasket(pp);
+                //
                 return true;
             }else{
                 cout << "no user found\n";
@@ -98,7 +104,7 @@ bool BasuKala::secondPageNormal(){
 bool BasuKala::storePageNormal(){
     while (true){
         cout << "----------\n";
-        cout << "-1) back\n 0) categories\n 1) search by name\n 2) edit cart\n 3) complete purchase\n";
+        cout << "-2)removed products\n-1) back\n 0) categories\n 1) search by name\n 2) edit cart\n 3) complete purchase\n";
         cout << "enter: ";
         int choose; cin >> choose;
         if(choose == -1)
@@ -138,8 +144,30 @@ bool BasuKala::storePageNormal(){
                     Product* p = pservice.getProductByName(proName);
                     if(p)
                         cout << i << ") " << p->getName() << ", $" << p->getPrice() << '\n';  
+                        // ready to store
                 }
             }
+        }
+        if(choose == 2){ //edit cart
+            if(Purchase.CheckIfBasketExists()){
+                    cout << "products in your basket: \n";
+                    const std::vector<Product> & items = Purchase.getCurrentBasket().getProducts();
+                    for(int i = 0 ; i < static_cast<int>(items.size()); i++)
+                        std::cout << "Id: "<< items[i].getId() << ") " << items[i].getName() << " | $" << items[i].getPrice() << '\n';
+                    
+                    std::cout << "Total cost: " << Purchase.getCurrentBasket().getTotalPrice() << '\n'
+                              << "balance: " << Purchase.getCurrentUser()->getBalance() << '\n';
+                    cout << "enter the product's id to remove: ";
+                    int remove; cin >> remove;
+                    if(Purchase.removeFromBasket(remove))
+                        cout << "Item removed successfully\n";
+                    else cout << "uncorrect id\n";
+            }
+        }
+        if(choose == -2){ // add the last removed item
+            if(Purchase.getCurrentBasket().undoLastRemovedItem())
+                cout << "last removed item restored successsfully\n";
+            else  cout << "no removed item to restore\n";
 
         }
     }  
