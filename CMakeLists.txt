@@ -21,3 +21,6 @@ set(SOURCES
     src/data_structures/Trie/Trie.cpp
 )
 add_executable(BasuKala ${SOURCES})
+
+
+

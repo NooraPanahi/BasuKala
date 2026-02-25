@@ -16,6 +16,7 @@ public:
     void removeProduct(int productId);
     ProductMaxHeap& getBestSellerHeap();
     std::vector<BST>& getCategoryP();
-    Product* getProductByName(const std::string& name);
+std::vector<Product*> getAllProductsByName(const std::string& name);
     Product* getProductById(int id);
+    Product* getProductByName(const std::string& name);
 };

@@ -30,9 +30,12 @@ void PService::removeProduct(int productId)
     Product* p = it->second.get();
 
     int cat = p->getCategory();
+    if(cat < 0 || cat >= categoryP.size())
+        throw std::runtime_error("Invalid category index");
+
     std::string name = p->getName();
 
-    categoryP[cat].remove(name, productId);
+    categoryP[cat].remove(name, productId, p);
 
     bestSellerHeap.remove(p);
 
@@ -46,17 +49,35 @@ std::vector<BST>& PService::getCategoryP(){
     return categoryP;
 }
 
-Product *PService::getProductByName(const std::string& name){
-    for(auto& [id, prodPtr] : ProductId){
-        if(prodPtr->getName() == name)
-            return prodPtr.get();
+
+std::vector<Product*> PService::getAllProductsByName(const std::string& name)
+{
+    std::vector<Product*> results;
+
+    for(auto& bst : categoryP)
+    {
+        auto vec = bst.search(name);
+        if(vec)
+            results.insert(results.end(), vec->begin(), vec->end());
     }
-    return nullptr;
+
+    return results;
 }
 
 Product *PService::getProductById(int id){
     auto it = ProductId.find(id);
     if(it != ProductId.end())
         return it->second.get();
+    return nullptr;
+}
+Product* PService::getProductByName(const std::string& name)
+{
+    for(auto& bst : categoryP)
+    {
+        auto vec = bst.search(name);
+        if(vec && !vec->empty())
+            return vec->at(0);   
+    }
+
     return nullptr;
 }
