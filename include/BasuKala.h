@@ -12,9 +12,17 @@ class BasuKala{
         Trie trie;
     public:
         BasuKala();
+        //actions
+        bool signUp();
+        bool login();
+        void increaseBalance();
+        bool showCategories();
+        void search();
+        void editCart();
         bool firstPage();
         bool secondPageNormal();
         bool storePageNormal();
+        void ChooseItem();
         void run();
 };
 
