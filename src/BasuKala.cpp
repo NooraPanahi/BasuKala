@@ -73,7 +73,7 @@ bool BasuKala::showCategories(){
     if(!bst->getNode())
         cout << "no products in this category\n";
     else{
-        bst->printProducts();
+        bst->printProducts(true);
         ChooseItem();  
     }
     return true;

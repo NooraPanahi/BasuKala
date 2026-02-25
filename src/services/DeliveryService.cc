@@ -1,6 +1,5 @@
 #include "../../include/services/DeliveryService.h"
-
-
+#include <stdexcept>
 void DelivaryService::addOrder(const Order &order)
 {
     OPQ.push(order);
@@ -8,12 +7,64 @@ void DelivaryService::addOrder(const Order &order)
 
 Order DelivaryService::dispatchNext()
 {
-    return OPQ.pop();
+    if(OPQ.empty())
+        throw std::runtime_error("No orders to dispatch");
+ Order order = OPQ.pop();
+     auto [warehouseId, distance, path] =
+    graph.getDeliveryRoute(order.getCityId());
+    order.setRoute(warehouseId, distance, path);
+        int itemCount = order.getTotalProducts();
+    // order.getUser()->increaseScore(itemCount);
+
+    printDeliveryInfo(order);
+
+    return order;
+
+}
+void DelivaryService::printDeliveryInfo(const Order& order)
+{
+    std::cout << "===== Processing Order =====\n";
+
+    std::cout << "Order ID: "
+              << order.getOrderId() << '\n';
+
+    std::cout << "Frozen Score (at registration): "
+              << order.getFrozenScore() << '\n';
+
+    std::cout << "Destination City ID: "
+              << order.getCityId() << '\n';
+
+    std::cout << "Warehouse ID: "
+              << order.getWarehouseId() << '\n';
+
+    std::cout << "Distance: "
+              << order.getDistance() << '\n';
+
+    std::cout << "Number of Products: "
+              << order.getTotalProducts() << '\n';
+
+    std::cout << "Delivery Path: ";
+
+    const std::vector<int>& path = order.getDeliveryPath();
+    if(path.empty()){
+        std::cout << "No path available";
+    } else {
+        for(size_t i = 0; i < path.size(); ++i){
+            std::cout << path[i];
+            if(i != path.size() - 1)
+                std::cout << " -> ";
+        }
+    }
+
+    std::cout << "\n=============================\n";
 }
 
 Order DelivaryService::nextOrder() const
 {
+    if(OPQ.empty())
+    throw std::runtime_error("No pending orders");
     return OPQ.top();
+
 }
 
 bool DelivaryService::hasOrders() const
