@@ -20,13 +20,14 @@ class PurchaseService{
 
         void addToBasket(const Product& product);
         bool removeFromBasket(int index);
-        void veiwBasket() const;
+        bool CheckIfBasketExists() const;
 
         bool checkout(int cityId, long long timestamp);
         void showPurchaseHistory() const;
         bool userExists(const std::string& name);
         Role getUsersRole()const;
         User* getCurrentUser()const;
+        Basket& getCurrentBasket();
 };
 
 #endif

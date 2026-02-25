@@ -1,5 +1,4 @@
 #include "../include/PurchaseService.h"
-#include "PurchaseService.h"
 
 PurchaseService::PurchaseService() : currentUser(nullptr), nextOrderId(1) {}
 
@@ -31,21 +30,12 @@ bool PurchaseService::removeFromBasket(int index)
     
 }
 
-void PurchaseService::veiwBasket() const{
-    if(!currentUser){
-        std::cout << "No user logged in.\n";
-        return;
-    }
+bool PurchaseService::CheckIfBasketExists() const{
     if(currentBasket.isEmpty()){
         std::cout << "Basket is empty.\n";
-        return;
+        return false;
     }
-    const std::vector<Product> & items = currentBasket.getProducts();
-    for(int i = 0 ; i < static_cast<int>(items.size()); i++)
-        std::cout << i << ") " << " Product ID: " << items[i].getId() << ", Price: " << items[i].getPrice() << '\n';
-    
-    std::cout << "Total price: " << currentBasket.getTotalPrice() << '\n';
-
+    return true;
 }
 
 bool PurchaseService::checkout(int cityId, long long timestamp){
@@ -87,4 +77,8 @@ Role PurchaseService::getUsersRole() const{
 
 User *PurchaseService::getCurrentUser() const{
     return currentUser;
+}
+
+Basket& PurchaseService::getCurrentBasket(){
+    return currentBasket;
 }
