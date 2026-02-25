@@ -1,8 +1,18 @@
 #include "../include/BasuKala.h"
+#include "BasuKala.h"
 using namespace std;
 
 BasuKala::BasuKala(){
     Purchase.registerUser(Role::normal,"noora",120); //normal user - testing login
+    pservice.addProduct("vegtables",20,1);
+    pservice.addProduct("banana", 80,3);
+    pservice.addProduct("tomatoes",10,2);
+    pservice.addProduct("baaa",8,4);
+    trie.insert("banana");
+    trie.insert("baaa");
+    trie.insert("vegtables");
+    trie.insert("tomatoes");
+    pservice.increaseSoldCount(1); //to see vegtables in top selling product
   
 }
 bool BasuKala::firstPage(){
@@ -54,26 +64,26 @@ bool BasuKala::secondPageNormal(){
 
     while(true){
         cout << " 0)store\n 1) increase balance\n 2) purchase history\n 3) log out\n";
-        cout << "top selling product:\n";
-        cout << pservice.getBestSellerHeap().top()->getName() << '\n';
-        //show top selling product
+        cout << "**top selling product:\n";
+        Product* topProduct = pservice.getBestSellerHeap().top();
+        if(topProduct)
+            cout << topProduct->getName() << '\n';
+        else cout << "No top selling product yet\n";
 
         cout << "enter: ";
         int choose;cin >> choose;
         if(choose == 0){
-            //next page for storing
+            return true;
         }
         else if(choose == 1){
             cout << "enter the amount: ";
             int amount ; cin >> amount;
             Purchase.getCurrentUser()->increaseBalance(amount);
             cout << "increased balance successfully\n";
-            return true;
         }
         else if(choose == 2){
             cout << "your purchase history:\n";
             Purchase.showPurchaseHistory();
-            return true;
         }
         else if(choose == 3){
             cout << "logging out\n";
@@ -83,10 +93,56 @@ bool BasuKala::secondPageNormal(){
         else{
             cout << "invalid action.try again\n";
         }
-
     }
+}
+bool BasuKala::storePageNormal(){
+    while (true){
+        cout << "----------\n";
+        cout << "-1) back\n 0) categories\n 1) search by name\n 2) edit cart\n 3) complete purchase\n";
+        cout << "enter: ";
+        int choose; cin >> choose;
+        if(choose == -1)
+            return false;
+        if(choose == 0){ // show categories
+            std::vector<BST>& products = pservice.getCategoryP();
+            cout << "categories: \n";
+            for(size_t i = 0 ; i < products.size(); i++)
+                cout << i << ") Category " << i << '\n';
 
+                cout << "enter category number to view products: ";
+                int catId; cin >> catId;
 
+                if(catId < 0 || catId >= static_cast<int>(products.size())){
+                    cout << "invalid category number\n";
+                    continue;
+                }
+                BST* bst = &products[catId];
+                auto root = bst->getNode();
+                if(!bst->getNode())
+                    cout << "no products in this category\n";
+                else{
+                    bst->printProducts();
+                    //go to next page for choosing item
+                }
+        }
+        if(choose == 1){ //search
+            cout << "enter the name of product: ";
+            string pro; cin>> pro;
+            vector<std::string> res = trie.searchByPrefix(pro);
+            if(res.empty())
+                cout << "no product found\n";
+            else{
+                cout << "search results:\n";
+                for(size_t i = 0 ; i < res.size(); i++){
+                    std::string proName = res[i];
+                    Product* p = pservice.getProductByName(proName);
+                    if(p)
+                        cout << i << ") " << p->getName() << ", $" << p->getPrice() << '\n';  
+                }
+            }
+
+        }
+    }  
 }
 void BasuKala::run(){
     cout << "***Welcome to our shop***\n";
@@ -95,8 +151,14 @@ void BasuKala::run(){
 
         } 
         if(Purchase.getUsersRole() == Role::normal){
-           if(secondPageNormal())
-                cout << "done\n";
+            while (true){
+                if(secondPageNormal())
+                    if(storePageNormal())
+                        cout << "done storing\n";                
+            }           
+            
+
+                
         }        
     }
 }
