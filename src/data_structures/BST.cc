@@ -141,3 +141,21 @@ BST::~BST()
 {
     clear(root);
 }
+
+BST::Node* BST::getNode() {
+    return root;
+}
+void BST::printNode(Node* node)const{
+    if(!node) return;
+    printNode(node->left);
+    for(auto prod : node->product){
+        std::cout << "Product ID: " << prod->getId()
+                  << ", " << prod->getName()
+                  << ", $" << prod->getPrice() << '\n';
+    }
+    printNode(node->right);
+
+}
+void BST::printProducts()const{
+    printNode(root);
+}

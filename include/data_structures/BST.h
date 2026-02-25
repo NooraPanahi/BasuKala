@@ -1,7 +1,7 @@
 #pragma once
 #include "../Product.h"
 #include <vector>
-#include <string>
+#include <iostream>
 
 class BST{
 private:
@@ -13,10 +13,12 @@ private:
     };
 
     Node* root = nullptr;
-
+    void printNode(Node* node)const;
+    
 public:
     ~BST();
-
+    Node* getNode();
+    void printProducts()const;
     void insert(const std::string& key, Product* value);
     std::vector<Product*>* search(const std::string& key);
     void remove(const std::string& key, int productId);
