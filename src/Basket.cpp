@@ -6,14 +6,17 @@ void Basket::addProduct(const Product& product){
     cart.push_back(product);
     totalPrice += product.getPrice();
 }
-bool Basket::removeProductByIndex(int index){
-    if(index < 0 || index >= static_cast<int>(cart.size()))
-        return false;
-    removedStack.push(cart[index]);
-    totalPrice -= cart[index].getPrice();
-    cart.erase(cart.begin() + index);
-
-    return true;
+bool Basket::removeProductByIndex(int id){
+    
+    for(int i = 0; i < static_cast<int>(cart.size()); i++){
+        if(cart[i].getId() == id){
+            removedStack.push(cart[i]);
+            totalPrice -= cart[i].getPrice();
+            cart.erase(cart.begin()+i);
+            return true;
+        }
+    }
+    return false;
 }
 bool Basket::undoLastRemovedItem(){
     Product lastItem(0,0,"",0);
