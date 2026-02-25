@@ -226,10 +226,7 @@ void BasuKala::run(){
             while (true){
                 if(secondPageNormal())
                     if(storePageNormal()){}
-            }           
-            
-
-                
+            }             
         }        
     }
 }
