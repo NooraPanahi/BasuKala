@@ -53,3 +53,10 @@ Product *PService::getProductByName(const std::string& name){
     }
     return nullptr;
 }
+
+Product *PService::getProductById(int id){
+    auto it = ProductId.find(id);
+    if(it != ProductId.end())
+        return it->second.get();
+    return nullptr;
+}

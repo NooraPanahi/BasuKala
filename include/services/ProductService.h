@@ -17,5 +17,5 @@ public:
     ProductMaxHeap& getBestSellerHeap();
     std::vector<BST>& getCategoryP();
     Product* getProductByName(const std::string& name);
-
+    Product* getProductById(int id);
 };
