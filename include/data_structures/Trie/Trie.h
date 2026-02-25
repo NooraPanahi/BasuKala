@@ -8,18 +8,17 @@ class Trie{
         {
             Node* children[26];
             bool endOfTheWord;
-            int productId;
+            std::string name;
             Node();
         };
         Node* root;
-        void collectAllWords(Node* node, std::vector<int>& results)const;
+        void collectAllWords(Node* node, std::vector<std::string>& results)const;
         void deleteNode(Node* node);
     public:
         Trie();
         ~Trie();
-        void insert(const std::string& word, int productId);
-        bool searchExact(const std::string& word, int& productId)const;
-        std::vector<int> searchByPrefix(const std::string& prefix) const;
+        void insert(const std::string& word);
+        std::vector<std::string> searchByPrefix(const std::string& prefix) const;
 };
 
 

@@ -1,6 +1,6 @@
 #include "../include/data_structures/Trie/Trie.h"
 
-Trie::Node::Node(): endOfTheWord(false), productId(-1){
+Trie::Node::Node(): endOfTheWord(false), name(""){
     for(int i = 0 ; i < 26; i++)
         children[i] = nullptr;
 }
@@ -19,7 +19,7 @@ void Trie::deleteNode(Node *node)
         deleteNode(node->children[i]);
     delete node;
 }
-void Trie::insert(const std::string &word, int productId){
+void Trie::insert(const std::string &word){
     Node* current = root;
     for(char c : word){
         if(c < 'a' || c > 'z')
@@ -32,31 +32,11 @@ void Trie::insert(const std::string &word, int productId){
         current = current->children[index];
     }
     current->endOfTheWord = true;
-    current->productId = productId;
+    current->name = word;
 }
 
-bool Trie::searchExact(const std::string &word, int &productId) const{
-    Node* current = root;
-    for(char c : word){
-        if(c < 'a' || c > 'z') 
-            return false;
-
-        int index = c - 'a';
-
-        if(!current->children[index]) 
-            return false;
-
-        current = current->children[index];
-    }
-    if(current->endOfTheWord){
-        productId = current->productId;
-        return true;
-    }
-    return false;
-}
-
-std::vector<int> Trie::searchByPrefix(const std::string &prefix) const{
-    std::vector<int>results;
+std::vector<std::string> Trie::searchByPrefix(const std::string &prefix) const{
+    std::vector<std::string>results;
     Node* current = root;
 
     for(char c : prefix){
@@ -73,10 +53,10 @@ std::vector<int> Trie::searchByPrefix(const std::string &prefix) const{
     collectAllWords(current, results);
     return results;
 }
-void Trie::collectAllWords(Node *node, std::vector<int> &results) const{
+void Trie::collectAllWords(Node *node, std::vector<std::string> &results) const{
     if(!node) return;
     if(node->endOfTheWord)
-        results.push_back(node->productId);
+        results.push_back(node->name);
 
     for(int i = 0 ; i < 26 ; i ++)
         collectAllWords(node->children[i], results);
