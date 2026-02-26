@@ -1,25 +1,34 @@
 #include "../../include/services/DeliveryService.h"
 #include <stdexcept>
+#include "PurchaseService.h"
+
 void DelivaryService::addOrder(const Order &order)
 {
     OPQ.push(order);
 }
 
-Order DelivaryService::dispatchNext()
+Order DelivaryService::dispatchNext(PurchaseService& p)
 {
     if(OPQ.empty())
         throw std::runtime_error("No orders to dispatch");
- Order order = OPQ.pop();
-     auto [warehouseId, distance, path] =
-    graph.getDeliveryRoute(order.getCityId());
+
+    Order order = OPQ.pop();
+
+    auto [warehouseId, distance, path] =
+        graph.getDeliveryRoute(order.getCityId());
+
     order.setRoute(warehouseId, distance, path);
-        int itemCount = order.getTotalProducts();
-    // order.getUser()->increaseScore(itemCount);
+
+    if(warehouseId != -1)
+{
+    User* u = p.user_getter(order.getUserId());
+    if(u)
+        u->increaseScore(order.getTotalProducts());
+}
 
     printDeliveryInfo(order);
 
     return order;
-
 }
 void DelivaryService::printDeliveryInfo(const Order& order)
 {

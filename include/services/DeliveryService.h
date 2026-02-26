@@ -10,7 +10,7 @@ private:
 public:
 DelivaryService(Graph& g) : graph(g) {}
 void addOrder(const Order& order);
-Order dispatchNext();
+Order dispatchNext(PurchaseService& p);
 Order nextOrder() const;
 bool hasOrders() const;
 size_t pendingCount() const;

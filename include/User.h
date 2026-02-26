@@ -12,11 +12,16 @@ class User{
         int score;
         std::vector<int> orderIds;
         PurchaseHistory history;
+        int id;
     public:
-        User(Role role,const std::string& name , double balance, int score):role(role), name(name) , balance(balance) , score(score){};
+        User(Role role,const std::string& name , double balance, int score, int id):role(role), name(name) , balance(balance) , score(score), id(id){};
         std::string getName()const{
             return name;
         }
+        int getId() const {
+            return id;
+        }
+        
         Role getRole()const{
             return role;
         }
