@@ -402,7 +402,20 @@ void BasuKala::removeProductAdmin(){
 }
 
 void BasuKala::deliverOrders(){
-
+    if(!delivery.hasOrders()){
+        cout << "No orders in delivery queue.\n";
+        return;
+    }
+    while (delivery.hasOrders()){
+        try{
+            delivery.dispatchNext(Purchase);
+        }
+        catch( exception& e){
+            cout << e.what() << '\n';
+            break;
+        } 
+    }
+    cout << "all orders processed\n"; 
 }
 void BasuKala::normalMenu(){
     while (true){
