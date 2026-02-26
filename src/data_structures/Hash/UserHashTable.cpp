@@ -28,7 +28,21 @@ bool UserHashTable::insert(const User& user){
     return true;
 }
 
-User* UserHashTable::findByName(const std::string& name){
+void UserHashTable::printAllUsers() const{
+    for(int i = 0 ; i < capacity; i++){
+        Node* current = table[i];
+        while (current){
+            const User& u = current->user;
+            if(u.getRole() == Role::normal)
+                std::cout << "Id: " << u.getId() << "| Name: " << u.getName()
+                          << " | Score: " << u.getScore() << " | Balance: $" << u.getBalance() << '\n';
+            current= current->next; 
+        }
+        
+    }
+}
+User *UserHashTable::findByName(const std::string &name)
+{
     int index = hashFunction(name);
     Node* current = table[index];
 
