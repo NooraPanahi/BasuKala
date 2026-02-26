@@ -11,10 +11,7 @@ BasuKala::BasuKala(): graph(),
     pservice.addProduct("banana", 80,3);
     pservice.addProduct("tomatoes",10,2);
     pservice.addProduct("baaa",8,4);
-    trie.insert("banana"); // testing for searching products
-    trie.insert("baaa");
-    trie.insert("vegtables");
-    trie.insert("tomatoes");
+
     graph.addCity("Bimsy", false);
     graph.addCity("Garoua", true);
     graph.addCity("Debrecen", false);
@@ -77,7 +74,7 @@ graph.addedge(10, 10, 6);
 
 // K - J (8)
 graph.addedge(8, 9, 10);
-    pservice.increaseSoldCount(2); //to see vegtables in top selling product
+   // pservice.increaseSoldCount(2); //to see vegtables in top selling product
   
 }
 bool BasuKala::signUp(){
@@ -164,7 +161,7 @@ bool BasuKala::showCategories(){
 void BasuKala::search(){
     cout << "enter the name of product: ";
     string pro; cin >> pro;
-    vector<std::string> res = trie.searchByPrefix(pro);
+    vector<std::string> res = pservice.getTrie().searchByPrefix(pro);
     if(res.empty())
         cout << "no product found\n";
     else{
@@ -370,7 +367,6 @@ void BasuKala::addProductAdmin(){
         return;
     }
     pservice.addProduct(name,price,category);
-    trie.insert(name);
     cout << "Product added successfully\n";
 }
 void BasuKala::removeProductAdmin(){
@@ -392,6 +388,15 @@ void BasuKala::removeProductAdmin(){
     bst.printProducts(true);
     cout << "enter product id to remove: ";
     int id; cin >> id;
+    Product *p = pservice.getProductById(id);
+    if(!p){
+        cout << "product not found\n";
+        return;
+    }
+    if(p->getCategory() != cat){
+        cout << "This product does not belong to this category\n";
+        return;
+    }
     try{
         pservice.removeProduct(id);
         cout << "product removed successfully\n";
