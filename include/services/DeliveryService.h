@@ -1,6 +1,7 @@
 #pragma once
 #include "../data_structures/StablePriorityQueue.h"
-#include "graph.h"
+#include "../data_structures/graph.h"
+#include "../PurchaseService.h"
 #include <iostream>
 
 class DelivaryService{

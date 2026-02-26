@@ -10,7 +10,7 @@ set(SOURCES
     src/data_structures/Hash/UserHashTable.cpp
     src/data_structures/Stack/ItemStack.cpp
     src/data_structures/BST.cc
-    #src/data_structures/graph.cc
+    src/data_structures/graph.cc
     src/data_structures/max_heap.cc
     src/data_structures/OrderPriorityQueue.cc
     src/services/DeliveryService.cc
