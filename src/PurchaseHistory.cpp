@@ -29,6 +29,7 @@ void PurchaseHistory::display() const{
         return;
     }
     Node* current = head;
+    std::cout << "your purchase history:\n";
     while(current){
         const Order& o = current->order;
         std::cout << "Order ID: " << o.getOrderId() << '\n';
