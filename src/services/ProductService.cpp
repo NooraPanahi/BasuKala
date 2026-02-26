@@ -10,6 +10,7 @@ void PService::addProduct(const std::string &name, double price, int category)
 
     categoryP[category].insert(name, product);
     bestSellerHeap.insert(product);
+    trie.insert(name);
     nextId++;
 }
 
@@ -80,4 +81,7 @@ Product* PService::getProductByName(const std::string& name)
     }
 
     return nullptr;
+}
+Trie& PService::getTrie(){
+    return trie;
 }

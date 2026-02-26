@@ -2,7 +2,6 @@
 #define BASUKALA_H
 #include "../include/PurchaseService.h"
 #include "../include/services/ProductService.h"
-#include "../include/data_structures/Trie/Trie.h"
 #include "../include/data_structures/graph.h"
 #include "../include/services/DeliveryService.h"
 
@@ -12,7 +11,6 @@ class BasuKala{
     private:
         PurchaseService Purchase;
         PService pservice;
-        Trie trie;
         Graph graph;
         DelivaryService delivery;
     
