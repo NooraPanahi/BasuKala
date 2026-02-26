@@ -136,9 +136,28 @@ bool BasuKala::showCategories(){
     auto root = bst->getNode();
     if(!bst->getNode())
         cout << "no products in this category\n";
-    else{
-        bst->printProducts(true);
-        ChooseItem();  
+        else{
+        bool nameFirst = true;
+        while (true){
+            cout << "-1) back\n-2) Swap product name and price display order\n";
+            bst->printProducts(nameFirst);
+            cout << "enter product id to add: ";
+            int id; cin >> id;
+            if(id == -1)
+                break;
+            else if(id == -2){
+                nameFirst = !nameFirst;
+                cout << ">>Display order swapped!\n";
+                continue;
+            }
+            else{
+                Product* p = pservice.getProductById(id);
+                if(p){
+                    Purchase.addToBasket(*p);
+                    cout << "added to basket successfully\n";
+                }else cout << "invalid product id\n";
+            }
+        }
     }
     return true;
 }
