@@ -14,6 +14,68 @@ BasuKala::BasuKala(): graph(),
     trie.insert("baaa");
     trie.insert("vegtables");
     trie.insert("tomatoes");
+    graph.addCity("Bimsy", false);
+    graph.addCity("Garoua", true);
+    graph.addCity("Debrecen", false);
+    graph.addCity("Lae", false);
+    graph.addCity("Merribell", false);
+    graph.addCity("Wimble", false);
+    graph.addCity("Aguascalientes", false);
+    graph.addCity("Froli", false);
+    graph.addCity("Tainan", true);
+    graph.addCity("Honiara", false);
+    graph.addCity("Twinklehollow", false);
+    graph.addCity("Trinkleby", false);
+    // A - B (2)
+graph.addedge(2, 1, 0);
+
+// A - C (5)
+graph.addedge(5, 2, 0);
+
+// B - F (5)
+graph.addedge(5, 5, 1);
+
+// D - E (1)
+graph.addedge(1, 4, 3);
+
+// E - C (4)
+graph.addedge(4, 2, 4);
+
+// E - F (2)
+graph.addedge(2, 5, 4);
+
+// E - G (3)
+graph.addedge(3, 6, 4);
+
+// F - G (5)
+graph.addedge(5, 6, 5);
+
+// F - H (3)
+graph.addedge(3, 7, 5);
+
+// H - G (4)
+graph.addedge(4, 6, 7);
+
+// G - I (2)
+graph.addedge(2, 8, 6);
+
+// G - J (4)
+graph.addedge(4, 9, 6);
+
+// C - L (3)
+graph.addedge(3, 11, 2);
+
+// C - K (4)
+graph.addedge(4, 10, 2);
+
+// C - J (6)
+graph.addedge(6, 9, 2);
+
+// G - K (10)
+graph.addedge(10, 10, 6);
+
+// K - J (8)
+graph.addedge(8, 9, 10);
     pservice.increaseSoldCount(1); //to see vegtables in top selling product
   
 }
