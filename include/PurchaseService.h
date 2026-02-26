@@ -27,8 +27,8 @@ class PurchaseService{
         void addToBasket(const Product& product);
         bool removeFromBasket(int index);
         bool CheckIfBasketExists() const;
-
- Order checkout(int cityId);
+        void showAllUsers()const;
+        Order checkout(int cityId);
         void showPurchaseHistory() const;
         bool userExists(const std::string& name);
         Role getUsersRole()const;

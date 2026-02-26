@@ -94,6 +94,9 @@ Order PurchaseService::checkout(int cityId)
     return order;
 }
 
+void PurchaseService::showAllUsers() const{
+    users.printAllUsers();
+}
 void PurchaseService::showPurchaseHistory() const{
     if(!currentUser){
         std::cout << "No user logged in\n";
