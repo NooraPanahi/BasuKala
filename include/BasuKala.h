@@ -18,7 +18,6 @@ class BasuKala{
     
     public:
         BasuKala();
-        //actions
         void completePurchase();
         bool signUp();
         bool login();
@@ -28,6 +27,13 @@ class BasuKala{
         void editCart();
         bool firstPage();
         bool secondPageNormal();
+        void normalMenu();
+        void adminMenu();
+        void Logout();
+        void addProductAdmin();
+        void removeProductAdmin();
+        void deliverOrders();
+        void undolastremoveditem();
         bool storePageNormal();
         void ChooseItem();
         void run();

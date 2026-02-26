@@ -1,11 +1,12 @@
 #include "../include/BasuKala.h"
-#include "BasuKala.h"
 #include <limits>
+#include "BasuKala.h"
 using namespace std;
 
 BasuKala::BasuKala(): graph(),
       delivery(graph){
     Purchase.registerUser(Role::normal,"noora",120); //normal user - testing login
+    Purchase.registerUser(Role::admin, "mina", 0); // admin
     pservice.addProduct("vegtables",20,1);
     pservice.addProduct("banana", 80,3);
     pservice.addProduct("tomatoes",10,2);
@@ -76,7 +77,7 @@ graph.addedge(10, 10, 6);
 
 // K - J (8)
 graph.addedge(8, 9, 10);
-    pservice.increaseSoldCount(1); //to see vegtables in top selling product
+    pservice.increaseSoldCount(2); //to see vegtables in top selling product
   
 }
 bool BasuKala::signUp(){
@@ -117,7 +118,6 @@ void BasuKala::increaseBalance(){
     int amount ; cin >> amount;
     Purchase.getCurrentUser()->increaseBalance(amount);
     cout << "increased balance successfully\n";
-
 }
 bool BasuKala::showCategories(){
     std::vector<BST>& products = pservice.getCategoryP();
@@ -144,7 +144,7 @@ bool BasuKala::showCategories(){
             cout << "enter product id to add: ";
             int id; cin >> id;
             if(id == -1)
-                break;
+                return false;
             else if(id == -2){
                 nameFirst = !nameFirst;
                 cout << ">>Display order swapped!\n";
@@ -229,31 +229,39 @@ bool BasuKala::secondPageNormal(){
     while(true){
         cout << " 0)store\n 1) increase balance\n 2) purchase history\n 3) log out\n";
         cout << "**top selling product:\n";
-        Product* topProduct = pservice.getBestSellerHeap().top();
-        if(topProduct)
-            cout << topProduct->getName() << '\n';
+        Product * top = nullptr;
+        if(!pservice.getBestSellerHeap().empty())
+            top = pservice.getBestSellerHeap().top();
+        if(top && top->getSoldCount() > 0)
+            cout << top->getName() << '\n';
         else cout << "No top selling product yet\n";
 
         cout << "enter: ";
         int choose;cin >> choose;
-        if(choose == 0){
+
+        switch (choose){
+        case 0:
             return true;
-        }
-        else if(choose == 1){
+        case 1:
             increaseBalance();
-        }
-        else if(choose == 2){
-            cout << "your purchase history:\n";
+            break;
+        case 2:
             Purchase.showPurchaseHistory();
-        }
-        else if(choose == 3){
-            cout << "logging out\n";
-            Purchase.logout();
+            break;
+        case 3:
+            Logout();
+            return false; 
+        default:
+            cout << "invalid action.try again\n";
             return false;
         }
-        else
-            cout << "invalid action.try again\n";
     }
+}
+void BasuKala::undolastremoveditem(){
+    if(Purchase.getCurrentBasket().undoLastRemovedItem())
+        cout << "last removed item restored successsfully\n";
+    else  
+        cout << "no removed item to restore\n";
 }
 bool BasuKala::storePageNormal(){
     while (true){
@@ -261,28 +269,29 @@ bool BasuKala::storePageNormal(){
         cout << "-2)removed products\n-1) back\n 0) categories\n 1) search by name\n 2) edit cart\n 3) complete purchase\n";
         cout << "enter: ";
         int choose; cin >> choose;
-        if(choose == -1)
-            return false;
-        else if(choose == 0){ // show categories
-           if(!showCategories())
-                continue;
+        switch (choose){
+            case -1:
+                return false;
+            case 0:
+                if(!showCategories())
+                    continue;
+                break;
+            case 1:
+                search();
+                break;
+            case 2:
+                editCart();
+                break;
+            case -2: 
+                undolastremoveditem();
+                break;
+            case 3:
+                completePurchase();
+                break;
+            default:
+                cout << "invalid action. try again\n";
+                return false;
         }
-        else if(choose == 1) //search
-            search();
-        else if(choose == 2) //edit cart
-            editCart();
-        else if(choose == -2){ // add the last removed item
-            if(Purchase.getCurrentBasket().undoLastRemovedItem())
-                cout << "last removed item restored successsfully\n";
-            else  
-                cout << "no removed item to restore\n";
-
-        }
-        else if(choose == 3){ //complete purchase
-            completePurchase();
-        }
-        else
-            cout << "invalid action.try again\n"; 
     }  
 }
 void BasuKala::completePurchase()
@@ -346,18 +355,101 @@ void BasuKala::ChooseItem(){
             cout << "invalid product id\n";
     }
 }
+void BasuKala::Logout(){
+    Purchase.logout();
+    cout << "logged out successfully\n";
+}
+void BasuKala::addProductAdmin(){
+    string name; double price; int category;
+    cout << "enter name: "; cin >> name;
+    cout << "enter price: "; cin >> price;
+    cout << "enter category(0-4): "; cin >> category;
 
+    if(category < 0 || category >= 5){
+        cout << "invalid category\n";
+        return;
+    }
+    pservice.addProduct(name,price,category);
+    trie.insert(name);
+    cout << "Product added successfully\n";
+}
+void BasuKala::removeProductAdmin(){
+    std::vector<BST>& cate = pservice.getCategoryP();
+    cout << "categories:\n";
+    for(size_t i = 0 ; i <cate.size(); i++)
+        cout << i << ") category " << i << '\n';
+    cout << "enter category: ";
+    int cat; cin >> cat;
+    if(cat < 0 || cat >= static_cast<int>(cate.size())){
+        cout << "invalid category\n";
+        return;
+    } 
+    BST & bst = cate[cat];
+    if(!bst.getNode()){
+        cout << "no product in this category\n";
+        return;
+    }
+    bst.printProducts(true);
+    cout << "enter product id to remove: ";
+    int id; cin >> id;
+    try{
+        pservice.removeProduct(id);
+        cout << "product removed successfully\n";
+    }
+    catch(exception& e){
+        cout << e.what() << '\n';
+    }
+}
+
+void BasuKala::deliverOrders(){
+
+}
+void BasuKala::normalMenu(){
+    while (true){
+        bool goToStore = secondPageNormal();
+        if(!goToStore)
+            break;
+        storePageNormal();
+    }
+}
+
+void BasuKala::adminMenu(){
+    while (true){
+        cout << "---admin panel---\n";
+        cout << " 0)Add product\n 1)Remove product\n 2)Veiw users info\n 3)Deliver orders\n 4)Logout\n";
+        cout << "enter: ";
+        int choose; cin >> choose;
+        switch (choose){
+        case 0:
+            addProductAdmin();
+            break;
+        case 1:
+            removeProductAdmin();
+            break;
+        case 2:
+            Purchase.showAllUsers();
+            break;
+        case 3:
+            deliverOrders();
+            break;
+        case 4:
+            Logout();
+            return;
+        default:
+            cout << "invalid action.try again\n";
+            break;
+        }
+    }
+}
 void BasuKala::run(){
     cout << "***Welcome to our shop***\n";
-    if(firstPage()){
-        if(Purchase.getUsersRole() == Role::admin){
-
-        } 
-        if(Purchase.getUsersRole() == Role::normal){
-            while (true){
-                if(secondPageNormal())
-                    if(storePageNormal()){}
-            }             
-        }        
+    while (true){
+        if(!firstPage())
+            break;
+        Role role = Purchase.getUsersRole();
+        if(role == Role::admin)
+            adminMenu();
+        else
+            normalMenu();
     }
 }
