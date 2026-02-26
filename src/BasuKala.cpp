@@ -1,8 +1,10 @@
 #include "../include/BasuKala.h"
 #include "BasuKala.h"
+#include <limits>
 using namespace std;
 
-BasuKala::BasuKala(){
+BasuKala::BasuKala(): graph(),
+      delivery(graph){
     Purchase.registerUser(Role::normal,"noora",120); //normal user - testing login
     pservice.addProduct("vegtables",20,1);
     pservice.addProduct("banana", 80,3);
@@ -196,11 +198,59 @@ bool BasuKala::storePageNormal(){
 
         }
         else if(choose == 3){ //complete purchase
-
+            completePurchase();
         }
         else
             cout << "invalid action.try again\n"; 
     }  
+}
+void BasuKala::completePurchase()
+{
+    cout << "\nEnter your city id from this list:\n";
+
+    const vector<City>& cities = graph.getCitiesList();
+
+    for(const auto& c : cities){
+        cout << "Id: " << c.getId()
+             << "\tName: " << c.getName() << '\n';
+    }
+
+    int id;
+
+    while(true){
+        cout << "Enter city id: ";
+
+        if(!(cin >> id)){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Enter a number.\n";
+            continue;
+        }
+
+        bool found = false;
+        for(const auto& c : cities){
+            if(c.getId() == id){
+                found = true;
+                break;
+            }
+        }
+
+        if(!found){
+            cout << "City id not found. Try again.\n";
+            continue;
+        }
+
+        break;
+    }
+
+    try{
+        Order order = Purchase.checkout(id);
+        delivery.addOrder(order);
+        cout << "Order registered successfully.\n";
+    }
+    catch(const std::exception& e){
+        cout << e.what() << '\n';
+    }
 }
 void BasuKala::ChooseItem(){
     cout << "enter product id to add (-1 to cancel): ";

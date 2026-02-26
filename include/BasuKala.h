@@ -3,6 +3,9 @@
 #include "../include/PurchaseService.h"
 #include "../include/services/ProductService.h"
 #include "../include/data_structures/Trie/Trie.h"
+#include "../include/data_structures/graph.h"
+#include "../include/services/DeliveryService.h"
+
 #include <iostream>
 
 class BasuKala{
@@ -10,9 +13,13 @@ class BasuKala{
         PurchaseService Purchase;
         PService pservice;
         Trie trie;
+        Graph graph;
+        DelivaryService delivery;
+    
     public:
         BasuKala();
         //actions
+        void completePurchase();
         bool signUp();
         bool login();
         void increaseBalance();

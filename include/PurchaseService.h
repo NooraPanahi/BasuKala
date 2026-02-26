@@ -6,6 +6,8 @@
 #include "Basket.h"
 #include <unordered_map>
 #include "Order.h"
+#include <memory>
+
 
 class PurchaseService{
     private:
@@ -14,6 +16,7 @@ class PurchaseService{
         Basket currentBasket;
         int nextOrderId;
         int nextUserId = 1;
+        long long nextTimestamp = 1;
         std::unordered_map<int, User*> usersById;
     public:
         PurchaseService();
@@ -25,7 +28,7 @@ class PurchaseService{
         bool removeFromBasket(int index);
         bool CheckIfBasketExists() const;
 
-        bool checkout(int cityId, long long timestamp);
+ Order checkout(int cityId);
         void showPurchaseHistory() const;
         bool userExists(const std::string& name);
         Role getUsersRole()const;

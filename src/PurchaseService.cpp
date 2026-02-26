@@ -3,21 +3,19 @@
 PurchaseService::PurchaseService() : currentUser(nullptr), nextOrderId(1) {}
 
 bool PurchaseService::registerUser(Role role,
-                                   const std::string &name,
+                                   const std::string& name,
                                    double balance)
 {
-    int id = nextUserId++;
-    
-    User newUser(role, name, balance, 0, id);
+User newUser(role, name, balance, 0, nextUserId);
 
-    if(!users.insert(newUser))
-        return false;
+if(!users.insert(newUser))
+    return false;
 
-    User* insertedUser = users.findByName(name);
+User* insertedUser = users.findByName(name);
 
-    usersById.emplace(id, insertedUser);
-
-    return true;
+usersById.emplace(nextUserId, insertedUser);
+nextUserId++;
+return true;
 }
 
 bool PurchaseService::login(const std::string &name){
@@ -29,7 +27,8 @@ void PurchaseService::logout(){
     currentUser = nullptr;
     currentBasket.clear();
 }
-User* PurchaseService::user_getter(int id) const{
+User* PurchaseService::user_getter(int id) const
+{
     auto it = usersById.find(id);
     if(it == usersById.end())
         return nullptr;
@@ -57,25 +56,42 @@ bool PurchaseService::CheckIfBasketExists() const{
     return true;
 }
 
-bool PurchaseService::checkout(int cityId, long long timestamp){
-    if(!currentUser || currentBasket.isEmpty()) return false;
+Order PurchaseService::checkout(int cityId)
+{
+    if(!currentUser)
+        throw std::runtime_error("No user logged in");
+
+    if(currentBasket.isEmpty())
+        throw std::runtime_error("Basket is empty");
 
     double total = currentBasket.getTotalPrice();
 
     if(!currentUser->hasEnoughBalance(total))
-        return false;
-    
+        throw std::runtime_error("Not enough balance");
+
     currentUser->decreaseBalance(total);
 
     std::vector<int> productIds;
     for(const auto& item : currentBasket.getProducts())
         productIds.push_back(item.getId());
-    
-    Order order(nextOrderId++, productIds,total,0,cityId,timestamp, currentUser->getId());
+
+    long long ts = nextTimestamp++;
+    int frozenScore = currentUser->getScore();
+
+    Order order(
+        nextOrderId++,
+        productIds,
+        total,
+        frozenScore,
+        cityId,
+        ts,
+        currentUser->getId()
+    );
+
     currentUser->getHistory().addOrder(order);
     currentBasket.clear();
-    return true;
-    
+
+    return order;
 }
 
 void PurchaseService::showPurchaseHistory() const{
