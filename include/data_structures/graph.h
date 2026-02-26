@@ -7,6 +7,7 @@ private:
     std::vector<std::vector<std::pair<int, int>>>neighbor;
     int nextid = 0;
 public:
+    std::vector <City> getCitiesList() const;
     std::string getCityNameById(const int& id);
     void addCity(const std::string& name, bool ware);
     void addedge(const int& weight, const int& target, const int& source);

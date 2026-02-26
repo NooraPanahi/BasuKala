@@ -11,7 +11,12 @@ void Graph::addCity(const std::string &name, bool ware)
     nextid++;
 
 }
-std::string Graph::getCityNameById(const int& id){
+std::vector<City> Graph::getCitiesList() const
+{
+    return cities   ;
+}
+std::string Graph::getCityNameById(const int &id)
+{
     return cities[id].getName();
 }
 void Graph::addedge(const int& weight, const int& target, const int& source)
