@@ -331,7 +331,7 @@ void BasuKala::completePurchase()
     }
 
     try{
-        Order order = Purchase.checkout(id);
+        Order order = Purchase.checkout(id, pservice);
         delivery.addOrder(order);
         cout << "Order registered successfully.\n";
     }

@@ -3,6 +3,7 @@
 
 #include "data_structures/Hash/UserHashTable.h"
 #include "PurchaseHistory.h"
+#include "services/ProductService.h"
 #include "Basket.h"
 #include <unordered_map>
 #include "Order.h"
@@ -28,7 +29,7 @@ class PurchaseService{
         bool removeFromBasket(int index);
         bool CheckIfBasketExists() const;
         void showAllUsers()const;
-        Order checkout(int cityId);
+        Order checkout(int cityId, PService& pservice);
         void showPurchaseHistory() const;
         bool userExists(const std::string& name);
         Role getUsersRole()const;

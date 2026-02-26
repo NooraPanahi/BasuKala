@@ -56,8 +56,7 @@ bool PurchaseService::CheckIfBasketExists() const{
     return true;
 }
 
-Order PurchaseService::checkout(int cityId)
-{
+Order PurchaseService::checkout(int cityId, PService& pservice){
     if(!currentUser)
         throw std::runtime_error("No user logged in");
 
@@ -72,8 +71,14 @@ Order PurchaseService::checkout(int cityId)
     currentUser->decreaseBalance(total);
 
     std::vector<int> productIds;
-    for(const auto& item : currentBasket.getProducts())
+    for(const auto& item : currentBasket.getProducts()){
         productIds.push_back(item.getId());
+        Product *p = pservice.getProductById(item.getId());
+        if(p){
+            p->increaseSoldCount();
+            pservice.getBestSellerHeap().increaseKey(p);
+        }
+    }
 
     long long ts = nextTimestamp++;
     int frozenScore = currentUser->getScore();
