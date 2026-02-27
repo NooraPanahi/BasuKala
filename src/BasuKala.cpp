@@ -111,6 +111,10 @@ bool BasuKala::login(){
 void BasuKala::increaseBalance(){
     cout << "enter the amount: ";
     int amount ; cin >> amount;
+    if(amount <= 0){
+        cout << "amount must be positive.\n";
+        return;
+    }
     Purchase.getCurrentUser()->increaseBalance(amount);
     cout << "increased balance successfully\n";
 }
@@ -163,19 +167,26 @@ bool BasuKala::showCategories(){
 void BasuKala::search(){
     cout << "enter the name of product: ";
     string pro; cin >> pro;
-    vector<std::string> res = pservice.getTrie().searchByPrefix(pro);
-    if(res.empty())
+    vector<string> res = pservice.getTrie().searchByPrefix(pro);
+    if(res.empty()){
         cout << "no product found\n";
-    else{
-        cout << "search results:\n";
-        for(size_t i = 0 ; i < res.size(); i++){
-            std::string proName = res[i];
-            Product* p = pservice.getProductByName(proName);
-            if(p)
-                cout << "id: " << p->getId() << ") " << p->getName() << ", $" << p->getPrice() << '\n';  
-        }
-        ChooseItem();
+        return;
     }
+    cout << "search results:\n";
+    vector<Product*> allowed;
+    for(const auto& name : res){
+        Product* p = pservice.getProductByName(name);
+        if(p){
+            cout << "id: " << p->getId() << ") " << p->getName() << ", $" << p->getPrice() << '\n';  
+            allowed.push_back(p);            
+        }
+    }
+    Product* choosen = ChooseItem(allowed);
+    if(choosen){
+        Purchase.addToBasket(*choosen);
+        cout << "added to basket successfully\n";
+    }
+    
 }
 void BasuKala::editCart(){
     if(Purchase.CheckIfBasketExists()){
@@ -252,7 +263,7 @@ bool BasuKala::secondPageNormal(){
             return false; 
         default:
             cout << "invalid action.try again\n";
-            return false;
+            break;
         }
     }
 }
@@ -289,12 +300,15 @@ bool BasuKala::storePageNormal(){
                 break;
             default:
                 cout << "invalid action. try again\n";
-                return false;
+                break;
         }
     }  
 }
-void BasuKala::completePurchase()
-{
+void BasuKala::completePurchase(){
+
+    if(!Purchase.CheckIfBasketExists()){
+        return;
+    }
     cout << "\nEnter your city id from this list:\n";
 
     const vector<City>& cities = graph.getCitiesList();
@@ -341,18 +355,17 @@ void BasuKala::completePurchase()
         cout << e.what() << '\n';
     }
 }
-void BasuKala::ChooseItem(){
+Product* BasuKala::ChooseItem(const std::vector<Product*>& allowedProducts){
     cout << "enter product id to add (-1 to cancel): ";
     int id; cin >> id;
-    if(id != -1){
-        Product* p = pservice.getProductById(id);
-        if(p){
-            Purchase.addToBasket(*p);
-            cout << "added to basket successfully\n";
-        }
-        else 
-            cout << "invalid product id\n";
+    if(id == -1)
+        return nullptr;
+    for(Product* p : allowedProducts){
+        if(p && p->getId() == id)
+            return p;
     }
+    cout << "invalid product id\n";
+    return nullptr;
 }
 void BasuKala::Logout(){
     Purchase.logout();

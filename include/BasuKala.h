@@ -33,7 +33,7 @@ class BasuKala{
         void deliverOrders();
         void undolastremoveditem();
         bool storePageNormal();
-        void ChooseItem();
+        Product* ChooseItem(const std::vector<Product*>& allowedProducts);
         void run();
 };
 
