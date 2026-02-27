@@ -256,7 +256,7 @@ bool BasuKala::secondPageNormal(){
             increaseBalance();
             break;
         case 2:
-            Purchase.showPurchaseHistory();
+            Purchase.showPurchaseHistory(pservice);
             break;
         case 3:
             Logout();

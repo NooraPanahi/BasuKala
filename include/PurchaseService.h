@@ -30,7 +30,7 @@ class PurchaseService{
         bool CheckIfBasketExists() const;
         void showAllUsers()const;
         Order checkout(int cityId, PService& pservice);
-        void showPurchaseHistory() const;
+        void showPurchaseHistory(PService& pservice) const;
         bool userExists(const std::string& name);
         Role getUsersRole()const;
         User* getCurrentUser()const;

@@ -23,7 +23,7 @@ void PurchaseHistory::addOrder(const Order &order){
     tail = newnode;
 }
 
-void PurchaseHistory::display() const{
+void PurchaseHistory::display(PService& pservice) const{
     if(!head){
         std::cout << "No purchase history.\n";
         return;
@@ -34,7 +34,12 @@ void PurchaseHistory::display() const{
         const Order& o = current->order;
         std::cout << "Order ID: " << o.getOrderId() << '\n';
         std::cout << "Total Price: " << o.getTotalPrice() << '\n';
-        std::cout << "Timestamp: " << o.getTimeStamp() << '\n';
+        std::cout << "Products:\n";
+        for(const int id : o.getProductIds()){
+            Product * p = pservice.getProductById(id);
+            if(p)
+                std::cout << " - " << p->getName() << '\n';
+        }
         std::cout << "----------------------------------\n";
 
         current = current->next;

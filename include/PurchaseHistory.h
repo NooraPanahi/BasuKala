@@ -2,6 +2,7 @@
 #define PURCHASE_HISTORY_H
 
 #include "Order.h"
+#include "../include/services/ProductService.h"
 #include <iostream>
 class PurchaseHistory{
     private:
@@ -16,7 +17,7 @@ class PurchaseHistory{
         PurchaseHistory();
         ~PurchaseHistory();
         void addOrder(const Order& order);
-        void display()const;
+        void display(PService& pservice)const;
         bool isEmpty()const;
 };
 

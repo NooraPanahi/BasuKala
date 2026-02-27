@@ -102,12 +102,12 @@ Order PurchaseService::checkout(int cityId, PService& pservice){
 void PurchaseService::showAllUsers() const{
     users.printAllUsers();
 }
-void PurchaseService::showPurchaseHistory() const{
+void PurchaseService::showPurchaseHistory(PService& pservice) const{
     if(!currentUser){
         std::cout << "No user logged in\n";
         return ;
     }
-    currentUser->getHistory().display();
+    currentUser->getHistory().display(pservice);
 }
 
 bool PurchaseService::userExists(const std::string &name){

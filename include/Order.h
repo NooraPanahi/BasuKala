@@ -70,8 +70,9 @@ public:
     this->deliveryPath = deliveryPath;
 }
     int getWarehouseId() const { return warehouseId; }
-int getDistance() const { return distance; }
-const std::vector<int>& getDeliveryPath() const { return deliveryPath; }
+    int getDistance() const { return distance; }
+    const std::vector<int>& getDeliveryPath() const { return deliveryPath; }
+    const std::vector<int>&  getProductIds()const{ return productIds; }
 };
 
 #endif
