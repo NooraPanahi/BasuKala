@@ -1,16 +1,20 @@
 #include "../include/BasuKala.h"
 #include <limits>
-#include "BasuKala.h"
 using namespace std;
 
 BasuKala::BasuKala(): graph(),
       delivery(graph){
-    Purchase.registerUser(Role::normal,"noora",120); //normal user - testing login
+    Purchase.registerUser(Role::normal,"noora",120); //normal user
     Purchase.registerUser(Role::admin, "mina", 0); // admin
+    Purchase.registerUser(Role::normal, "zahra", 0);
+    Purchase.registerUser(Role::normal, "narges", 0);
+
     pservice.addProduct("vegtables",20,1);
+    pservice.addProduct("apple",20, 0);
     pservice.addProduct("banana", 80,3);
     pservice.addProduct("tomatoes",10,2);
-    pservice.addProduct("baaa",8,4);
+    pservice.addProduct("avocado", 100, 1);
+    pservice.addProduct("blueberry", 35, 4);
 
     graph.addCity("Bimsy", false);
     graph.addCity("Garoua", true);
@@ -24,56 +28,56 @@ BasuKala::BasuKala(): graph(),
     graph.addCity("Honiara", false);
     graph.addCity("Twinklehollow", false);
     graph.addCity("Trinkleby", false);
-    // A - B (2)
-graph.addedge(2, 1, 0);
+        // A - B (2)
+    graph.addedge(2, 1, 0);
 
-// A - C (5)
-graph.addedge(5, 2, 0);
+    // A - C (5)
+    graph.addedge(5, 2, 0);
 
-// B - F (5)
-graph.addedge(5, 5, 1);
+    // B - F (5)
+    graph.addedge(5, 5, 1);
 
-// D - E (1)
-graph.addedge(1, 4, 3);
+    // D - E (1)
+    graph.addedge(1, 4, 3);
 
-// E - C (4)
-graph.addedge(4, 2, 4);
+    // E - C (4)
+    graph.addedge(4, 2, 4);
 
-// E - F (2)
-graph.addedge(2, 5, 4);
+    // E - F (2)
+    graph.addedge(2, 5, 4);
 
-// E - G (3)
-graph.addedge(3, 6, 4);
+    // E - G (3)
+    graph.addedge(3, 6, 4);
 
-// F - G (5)
-graph.addedge(5, 6, 5);
+    // F - G (5)
+    graph.addedge(5, 6, 5);
 
-// F - H (3)
-graph.addedge(3, 7, 5);
+    // F - H (3)
+    graph.addedge(3, 7, 5);
 
-// H - G (4)
-graph.addedge(4, 6, 7);
+    // H - G (4)
+    graph.addedge(4, 6, 7);
 
-// G - I (2)
-graph.addedge(2, 8, 6);
+    // G - I (2)
+    graph.addedge(2, 8, 6);
 
-// G - J (4)
-graph.addedge(4, 9, 6);
+    // G - J (4)
+    graph.addedge(4, 9, 6);
 
-// C - L (3)
-graph.addedge(3, 11, 2);
+    // C - L (3)
+    graph.addedge(3, 11, 2);
 
-// C - K (4)
-graph.addedge(4, 10, 2);
+    // C - K (4)
+    graph.addedge(4, 10, 2);
 
-// C - J (6)
-graph.addedge(6, 9, 2);
+    // C - J (6)
+    graph.addedge(6, 9, 2);
 
-// G - K (10)
-graph.addedge(10, 10, 6);
+    // G - K (10)
+    graph.addedge(10, 10, 6);
 
-// K - J (8)
-graph.addedge(8, 9, 10);
+    // K - J (8)
+    graph.addedge(8, 9, 10);
    // pservice.increaseSoldCount(2); //to see vegtables in top selling product
   
 }
@@ -83,7 +87,7 @@ bool BasuKala::signUp(){
     if(Purchase.userExists(name))
         cout << "we have this user!! sign in failed\n";
     else{
-        if(Purchase.registerUser(Role::normal,name,200)){// balance ?? 
+        if(Purchase.registerUser(Role::normal,name,0)){ // By default balance = 0
             Purchase.login(name);
             cout << "signed in successfully!!\n";
             return true;
@@ -98,12 +102,6 @@ bool BasuKala::login(){
     if(Purchase.userExists(name)){
         Purchase.login(name);
         cout << "logged in successfully\n";
-        // to check basket
-            Product p(3,4,"banana",30);
-            Purchase.addToBasket(p);
-            Product pp(5,3,"rrr",43);
-            Purchase.addToBasket(pp);
-        //
         return true;
     }else
         cout << "no user found\n";
@@ -149,10 +147,14 @@ bool BasuKala::showCategories(){
             }
             else{
                 Product* p = pservice.getProductById(id);
-                if(p){
+                if(!p) 
+                    cout << "invalid product id\n";
+                else if(p->getCategory() != catId) 
+                    cout << "this product does not belong to this category\n";
+                else{
                     Purchase.addToBasket(*p);
                     cout << "added to basket successfully\n";
-                }else cout << "invalid product id\n";
+                }
             }
         }
     }
@@ -182,8 +184,8 @@ void BasuKala::editCart(){
         for(int i = 0 ; i < static_cast<int>(items.size()); i++)
             std::cout << "Id: "<< items[i].getId() << ") " << items[i].getName() << " | $" << items[i].getPrice() << '\n';
         
-        std::cout << "Total cost: " << Purchase.getCurrentBasket().getTotalPrice() << '\n'
-                    << "balance: " << Purchase.getCurrentUser()->getBalance() << '\n';
+        std::cout << "Total cost: $" << Purchase.getCurrentBasket().getTotalPrice() << '\n'
+                    << "balance: $" << Purchase.getCurrentUser()->getBalance() << '\n';
         cout << "enter the product's id to remove: ";
         int remove; cin >> remove;
         if(Purchase.removeFromBasket(remove))
