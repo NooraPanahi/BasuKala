@@ -47,6 +47,3 @@ bool Basket::isEmpty() const{
     return cart.empty();
 }
 
-int Basket::size() const{
-    return static_cast<int>(cart.size());
-}

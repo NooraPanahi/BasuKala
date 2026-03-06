@@ -132,33 +132,33 @@ bool BasuKala::showCategories(){
         return false;
     }
     BST* bst = &products[catId];
-    auto root = bst->getNode();
+
     if(!bst->getNode())
         cout << "no products in this category\n";
+
+    bool nameFirst = true;
+
+    while (true){
+        cout << "-1) back\n-2) Swap product name and price display order\n";
+        bst->printProducts(nameFirst);
+        cout << "enter product id to add: ";
+        int id; cin >> id;
+        if(id == -1)
+            return false;
+        else if(id == -2){
+            nameFirst = !nameFirst;
+            cout << ">>Display order swapped!\n";
+            continue;
+        }
         else{
-        bool nameFirst = true;
-        while (true){
-            cout << "-1) back\n-2) Swap product name and price display order\n";
-            bst->printProducts(nameFirst);
-            cout << "enter product id to add: ";
-            int id; cin >> id;
-            if(id == -1)
-                return false;
-            else if(id == -2){
-                nameFirst = !nameFirst;
-                cout << ">>Display order swapped!\n";
-                continue;
-            }
+            Product* p = pservice.getProductById(id);
+            if(!p) 
+                cout << "invalid product id\n";
+            else if(p->getCategory() != catId) 
+                cout << "this product does not belong to this category\n";
             else{
-                Product* p = pservice.getProductById(id);
-                if(!p) 
-                    cout << "invalid product id\n";
-                else if(p->getCategory() != catId) 
-                    cout << "this product does not belong to this category\n";
-                else{
-                    Purchase.addToBasket(*p);
-                    cout << "added to basket successfully\n";
-                }
+                Purchase.addToBasket(*p);
+                cout << "added to basket successfully\n";
             }
         }
     }
@@ -176,10 +176,8 @@ void BasuKala::search(){
     vector<Product*> allowed;
     for(const auto& name : res){
         Product* p = pservice.getProductByName(name);
-        if(p){
-            cout << "id: " << p->getId() << ") " << p->getName() << ", $" << p->getPrice() << '\n';  
-            allowed.push_back(p);            
-        }
+        if(p)
+            allowed.push_back(p);             
     }
     Product* choosen = ChooseItem(allowed);
     if(choosen){
@@ -281,6 +279,7 @@ bool BasuKala::storePageNormal(){
         int choose; cin >> choose;
         switch (choose){
             case -1:
+                Purchase.getCurrentBasket().clear(); 
                 return false;
             case 0:
                 if(!showCategories())
@@ -356,16 +355,23 @@ void BasuKala::completePurchase(){
     }
 }
 Product* BasuKala::ChooseItem(const std::vector<Product*>& allowedProducts){
-    cout << "enter product id to add (-1 to cancel): ";
-    int id; cin >> id;
-    if(id == -1)
+    if(allowedProducts.empty()){
+        cout << "no items available.\n";
         return nullptr;
-    for(Product* p : allowedProducts){
-        if(p && p->getId() == id)
-            return p;
     }
-    cout << "invalid product id\n";
-    return nullptr;
+    cout << "-1) cancel\n";
+    for(size_t i = 0 ; i < allowedProducts.size(); i++)
+        cout << i << ") " << allowedProducts[i]->getName() << "| $" << allowedProducts[i]->getPrice() << '\n';
+    
+    cout << "enter choice: ";
+    int choice; cin >> choice;
+    if(choice == -1)
+        return nullptr;
+    if(choice < 0 || choice >= static_cast<int> (allowedProducts.size())){
+        cout << "invalid choice\n";
+        return nullptr;
+    }
+    return allowedProducts[choice];
 }
 void BasuKala::Logout(){
     Purchase.logout();

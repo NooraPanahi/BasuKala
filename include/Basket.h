@@ -19,7 +19,6 @@ class Basket{
         double getTotalPrice()const;
         const std::vector<Product>&  getProducts()const;
         bool isEmpty()const;
-        int size()const;
 };
 
 #endif
